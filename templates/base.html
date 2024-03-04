@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/base.css' %}">
+    {% block head %}
+    {% endblock %}
+    {% comment %} <title>Театральная мастерская "Верю"</title> {% endcomment %}
+</head>
+<body>
+   <header>
+        <div id="logo" class="logo">
+                <img class="logo-img" src="images/%D0%BB%D0%BE%D0%B3%D0%BE.png" alt="ТМ Верю">
+        </div>
+        <div class="menu">
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#nashi-afishi"  class="text">Наши афиши</a></li>
+                    <li><a href="#raspisanie-zanjat"  class="text">Расписание занятий</a></li> 
+                    <li><a href="#novosti"  class="text">Новости</a></li>
+                    <li><a href="#novosti"  class="text">Детский театр Феникс</a></li>
+                </ul>
+            </nav>
+        </div>
+       <h1>Театральная мастерская "Верю"</h1><br> 
+       <blockquote class="chetko">«Истинные творческие чувства не лежат на поверхности души. Вызванные из глубин подсознания, они поражают не только зрителя, но и самого актера.»<br><a class="link" href="https://ru.wikipedia.org/wiki/%D0%A7%D0%B5%D1%85%D0%BE%D0%B2,_%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87" title="Михаил Александрович Чехов цитаты"> —&nbsp;Михаил Александрович Чехов</a></blockquote>
+       <p class="chetko1">Для желающих</p>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <div class="chetko2">
+             <div class="box1">
+                 <p><a href="https://instagram.com/veriu_theatre?igshid=NTc4MTIwNjQ2YQ=="  class="text">Мы в социальных сетях</a>
+             </p>
+             </div>
+             <div class="img-inst">
+                 <p><a href="https://instagram.com/veriu_theatre?igshid=NTc4MTIwNjQ2YQ==" class="insta"></a></p>
+             </div>
+         </div>
+         <div class="niz">
+            <p><small>@ 2024, Все права защищены</small></p>
+             Copyright &copy; Company 2020-2023
+         </div>
+      </footer>
+</body>
+</html>
