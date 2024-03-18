@@ -1,0 +1,21 @@
+.product-card__orignl-price-container {
+    display: flex;
+    align-items: center;
+    height: 2em;
+}
+
+.product-card__disabled {
+    opacity: 0.5;
+}
+
+.product-card__originl-price {
+    text-decoration: line-through;
+    color: darkgray;
+}
+
+.product-card__image {
+    display: block;
+    object-fit: contain;
+    width: 200px;
+    height: 200px;
+}

@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block head %}
 
 <title>Театральная мастерская "Верю"</title>
+<link rel="stylesheet" href="{% static 'styles/index.css' %}">
 
 {% endblock %}
 
@@ -13,9 +15,23 @@
      -->
     {% for ticket in tickets %}
     <li>
-        <div class="product-card">
+        <div class="
+            product-card
+            {% if ticket.count < 1 %}product-card_disabled{% endif %}
+            ">
+            <img 
+                class="product-card__image" 
+                src="{% if product.image.url is not None %}{{ product.image.url }}{% endif %}" 
+                alt="{{ticket.title}}"
+            />
             <h2 class="product-card__title">{{ticket.title}}</h2>
             <p class="product-card__text">{{ticket.description}}</p>
+            <div class="product-card__orignl-price-container">
+            {% if ticket.originl_price is not None %}
+            <p class="product-card__originl-price">{{ticket.originl_price}}</p>
+            {% endif %}
+            <p class="product-card__price">{{ticket.price}}</p>
+            </div>
             <a href="/product/1" class="product-card__link">Подробнее</a>
         </div>
     </li>

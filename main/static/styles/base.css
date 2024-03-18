@@ -8,7 +8,7 @@ header {
     background-image: url('../img/MishailChehov.jpg');
     background-size: contain;
     background-repeat: round;
-    height: 120px;
+    height: fit-content;
     padding: 8% 0%;
     color: white;
     }

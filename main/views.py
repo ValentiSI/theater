@@ -8,7 +8,8 @@ from .models import Ticket
 #     ''')
 
 def index_view(request: HttpRequest):
-    tickets = Ticket.objects.all()
+    tickets = Ticket.objects.filter(is_activ=True)
+    tickets = tickets.order_by('-count', 'create_date')
     
     return HttpResponse(render(request, 'index.html', {
         'tickets': tickets
