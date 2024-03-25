@@ -1,6 +1,6 @@
 from django.db import models
 
-class Ticket(models.Model):
+class Product(models.Model):
     title = models.CharField(
         max_length=255, blank=False, verbose_name='Название спектакля'
     )

@@ -1,0 +1,14 @@
+.input-group {
+    margin-bottom: 1em;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.forgot-password-link-container {
+    text-align: center;
+}

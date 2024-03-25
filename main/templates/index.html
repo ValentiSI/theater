@@ -13,28 +13,34 @@
 <ul class="product-list">
     <!-- li*5>div.product-card>h2.product-card__title+p.product-card__text
      -->
-    {% for ticket in tickets %}
+    {% for product in products %}
     <li>
-        <div class="
-            product-card
-            {% if ticket.count < 1 %}product-card_disabled{% endif %}
-            ">
+        <div 
+            class="
+                product-card
+                {% if product.count < 1 %}product-card_disabled{% endif %}
+            "
+        >
+
             <img 
                 class="product-card__image" 
                 src="{% if product.image.url is not None %}{{ product.image.url }}{% endif %}" 
-                alt="{{ticket.title}}"
+                alt="{{ product.title }}"
             />
-            <h2 class="product-card__title">{{ticket.title}}</h2>
-            <p class="product-card__text">{{ticket.description}}</p>
-            <div class="product-card__orignl-price-container">
-            {% if ticket.originl_price is not None %}
-            <p class="product-card__originl-price">{{ticket.originl_price}}</p>
+            <h2 class="product-card__title">{{ product.title }}</h2>
+            <p class="product-card__text">{{ product.description }}</p>
+            <div class="product-card__prices-container">
+            {% if product.original_price is not None %}
+            <p class="product-card__original-price">{{ product.original_price }}</p>
             {% endif %}
-            <p class="product-card__price">{{ticket.price}}</p>
+            <p class="product-card__price">{{ product.price }}</p>
             </div>
-            <a href="/product/1" class="product-card__link">Подробнее</a>
+            
+            <a href="{% url 'product' product.id %}" class="product-card__link">Подробнее</a>
         </div>
     </li>
     {% endfor %}
+
 </ul>
+
 {% endblock %}
