@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+<title>Профиль</title>
+<link rel="stylesheet" href="styles/profile.css">
+
+{% endblock %}
+
+
+{% block content %}
+
+<form action="/auth/logout/?next=/auth/login/" method="post">
+    {% csrf_token %}
+    <button type="submit">Выйти</button>
+</form>
+
+{% endblock %}

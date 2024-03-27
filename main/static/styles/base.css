@@ -291,3 +291,65 @@ h3 {
 .img-pushkin {
     width: 320px;
 }
+
+/* Ot Aleksander */
+
+/* * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.header {
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: fit-content;
+}
+
+.nav-menu__list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-menu__list a {
+    display: block;
+    padding: 0.5em 1ch;
+    text-decoration: none;
+    color: #000;
+}
+
+.nav-menu__list a:hover {
+    background-color: #ccc;
+}
+
+.nav-menu__profile a {
+    padding: 0.25em 0.25em;
+}
+
+.nav-menu__profile-icon {
+    display: block;
+    height: 1.5em;
+    width: auto;
+}
+
+.main-content {
+    padding: 3em;
+}
+
+button {
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .main-content {
+        padding: 3em 1em;
+    }
+} */
