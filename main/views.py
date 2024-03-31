@@ -4,12 +4,12 @@ from django.shortcuts import redirect, render
 from .models import Product
 
 
-def index_view(request: HttpRequest):
+def products_view(request: HttpRequest):
     tickets = Product.objects.filter(is_activ=True)
     tickets = tickets.order_by('-count', 'create_date')
     
-    return HttpResponse(render(request, 'index.html', {
-        'tickets': tickets
+    return HttpResponse(render(request, 'products.html', {
+        'products': tickets
     }))
 
 
@@ -17,10 +17,10 @@ def get_product_for_view(id: int):
     try:
         product = Product.objects.get(id=id)
     except Product.DoesNotExist:
-        raise Http404('Товар не найден')
+        raise Http404('Билет не найден')
 
     if not product.is_active:
-        raise Http404('Товар не доступен')
+        raise Http404('Билет не доступен')
 
     return product
 
