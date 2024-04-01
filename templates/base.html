@@ -30,7 +30,7 @@
                     <li><a href="{% url 'products' %}">Купить билеты</a></li>
                     <li><a href="{% url 'basket' %}">Корзина</a></li>
                     {% if user.is_authenticated %}
-                    <li class="nav-menu__profile"><a href="{% url 'profile' %}"><img class="nav-menu__profile-icon" src="{% static 'icons/profile.png' %}" alt="profile"></a></li>
+                    <li class="nav-menu__profile"><a href="{% url 'profile' %}"><img class="nav-menu__profile-icon" src="{% static 'img/profile.png' %}" alt="profile"></a></li>
                     {% else %}
                     <li><a href="{% url 'login' %}">Войти</a></li>
                     {% endif %}
