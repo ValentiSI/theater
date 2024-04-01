@@ -7,6 +7,10 @@ class Product(models.Model):
     image = models.ImageField(
         upload_to='images/', verbose_name='Изображение', null=True, blank=True
     )
+    # продолжительность спектакля
+    duration_in_of_the_performance = models.TextField(
+        verbose_name='Длительность', default='', blank=True
+    )
     description = models.TextField(
         verbose_name='Описание', default='', blank=True
     )
