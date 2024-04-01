@@ -9,5 +9,4 @@ python manage.py migrate - обновление/создание базы дан
 pip freeze > requirements.txt - создаст файл с библиотеками которые используются в проекте, если находишься в среде (venv)
 pip install -r.\requirements.txt - загрузит нужные библиотеки
 
-python manage.py createsuperuser --username admin --email admin@domain.com
-- добавить админ пользователя
+python manage.py createsuperuser --username admin --email admin@domain.com - добавить админ пользователя
