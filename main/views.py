@@ -4,14 +4,21 @@ from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
 from .models import Order, OrderProduct, Product
-
+from .forms import SearchForm
 
 def products_view(request: HttpRequest):
-    product = Product.objects.filter(is_active=True)
-    product = product.order_by('-count', 'create_date')
+    products = Product.objects.filter(is_active=True)
+    products = products.order_by('-count', '-show_date')
+    
+    search_form = SearchForm(request.GET)
+    if search_form.is_valid():
+        products = products.filter(
+            title__icontains=search_form.cleaned_data['query']
+        )
     
     return HttpResponse(render(request, 'products.html', {
-        'products': product
+        'products': products,
+        'search_form': search_form
     }))
 
 

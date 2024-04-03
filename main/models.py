@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 class Product(models.Model):
     title = models.CharField(
@@ -7,6 +8,10 @@ class Product(models.Model):
     )
     image = models.ImageField(
         upload_to='images/', verbose_name='Изображение', null=True, blank=True
+    )
+    # дата показа представления
+    show_date = models.DateTimeField(
+        verbose_name='Дата и время показа', default=datetime.date.today
     )
     # продолжительность спектакля
     duration_in_of_the_performance = models.TextField(
@@ -89,6 +94,13 @@ class Order(models.Model):
     )
     
     @property
+    def is_cancelable(self):
+        for product in self.products.all():
+            if product.date >= datetime.datetime.today():
+                return False
+        return True
+    
+    @property
     def total_price(self):
         return sum([
             order_product.price * order_product.quantity
@@ -100,5 +112,5 @@ class Order(models.Model):
         verbose_name_plural = 'Заказы'
 
     def __str__(self):
-        return f'Order on {str(self.product)}'
+        return f'Order from {str(self.user)}'
     
