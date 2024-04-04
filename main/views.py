@@ -13,7 +13,7 @@ def products_view(request: HttpRequest):
     search_form = SearchForm(request.GET)
     if search_form.is_valid():
         products = products.filter(
-            title__icontains=search_form.cleaned_data['query']
+            performance__title__icontains=search_form.cleaned_data['query']
         )
     
     return HttpResponse(render(request, 'products.html', {

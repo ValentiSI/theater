@@ -36,7 +36,7 @@
             <img 
                 class="product-card__image" 
                 src="{% if product.image.url is not None %}{{ product.image.url }}{% endif %}" 
-                alt="{{ product.title }}"
+                alt="{{ product.performance.title }}"
             />
             <h2 class="product-card__title">{{ product.title }}</h2>
             <div class="product-card__prices-container">

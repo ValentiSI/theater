@@ -10,3 +10,5 @@ pip freeze > requirements.txt - создаст файл с библиотека�
 pip install -r.\requirements.txt - загрузит нужные библиотеки
 
 python manage.py createsuperuser --username admin --email admin@domain.com - добавить админ пользователя
+
+python manage.py shell - копируем код из generate_test_data.py, вставляем, далее exit(), далее база заполняется

@@ -41,7 +41,7 @@ class Product(models.Model):
     image = models.ImageField(
         upload_to='images/', verbose_name='Изображение', null=True, blank=True
     )
-    product = models.ForeignKey(
+    performance = models.ForeignKey(
         Performance, on_delete=models.CASCADE, verbose_name='Билет спектакля'
     )
     # дата показа представления
@@ -67,13 +67,17 @@ class Product(models.Model):
     update_date = models.DateTimeField(
         auto_now=True, verbose_name='Дата обновления'
     )
+
+    @property
+    def title(self):
+        return self.performance.title
     
     class Meta:
         verbose_name = 'Билет'
         verbose_name_plural = 'Билеты'
     
     def __str__(self):
-        return self.title   
+        return self.performance.title   
     
 class OrderProduct(models.Model):
     order = models.ForeignKey(
@@ -88,7 +92,7 @@ class OrderProduct(models.Model):
     )
 
     def __str__(self):
-        return f'{self.quantity} of {self.product.title}'
+        return f'{self.quantity} of {self.product.performance.title}'
 
 
 class Order(models.Model):
