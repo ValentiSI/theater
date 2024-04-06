@@ -9,10 +9,7 @@ class Performance(models.Model):
     image = models.ImageField(
         upload_to='images/', verbose_name='Изображение', null=True, blank=True
     )
-    # дата показа представления
-    show_date = models.DateTimeField(
-        verbose_name='Дата и время показа', default=datetime.date.today
-    )
+    is_premiere = models.BooleanField(default=False, verbose_name='Премьера')
     # продолжительность спектакля
     duration_in_of_the_performance = models.TextField(
         verbose_name='Длительность', default='', blank=True
@@ -38,15 +35,15 @@ class Performance(models.Model):
         return self.title  
 
 class Product(models.Model): 
-    image = models.ImageField(
-        upload_to='images/', verbose_name='Изображение', null=True, blank=True
-    )
+    # image = models.ImageField(
+    #     upload_to='images/', verbose_name='Изображение', null=True, blank=True
+    # )
     performance = models.ForeignKey(
         Performance, on_delete=models.CASCADE, verbose_name='Билет спектакля'
     )
     # дата показа представления
     show_date = models.DateTimeField(
-        verbose_name='Дата и время показа', default=datetime.date.today
+        verbose_name='Дата и время показа', default=datetime.datetime.today
     )
     # цена за один билет
     price = models.DecimalField(
@@ -86,7 +83,9 @@ class OrderProduct(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, verbose_name='Билет'
     )
-    quantity = models.IntegerField(verbose_name='Количество')
+    quantity = models.IntegerField(
+        verbose_name='Количество'
+    )
     price = models.DecimalField(
         max_digits=12, decimal_places=2, verbose_name='Цена'
     )

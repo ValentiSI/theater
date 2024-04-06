@@ -3,11 +3,8 @@ from django.contrib import admin
 from .models import Order, OrderProduct, Product, Performance
 
 admin.site.register(Product)
+admin.site.register(Performance)
 
-# @admin.register(OrderProduct)
-# class OrderProductAdmin(admin.ModelAdmin):
-#     list_display = ('order', 'product', 'quantity', 'price',
-#                     'order__user', 'order__email', 'created_at', 'updated_at')
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -51,3 +48,13 @@ class OrderAdmin(admin.ModelAdmin):
     @admin.display(description='Сумма')
     def total_price(self, obj):
         return obj.total_price
+
+@admin.register(OrderProduct)
+class OrderProductAdmin(admin.ModelAdmin):
+    list_display = ('order', 'product', 
+                    'quantity', 'price')
+
+    def user_email(self, obj):
+        return obj.order.user.email
+    user_email.short_description = 'Email пользователя'
+    

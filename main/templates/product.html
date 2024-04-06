@@ -13,8 +13,8 @@
 <div class="product-container">
     <img
         class="product__image"
-        src="{% if product.image.url is not None %}{{ product.image.url }}{% endif %}" 
-        alt="{{ product.title }}"
+        src="{% if product.performance.image.url is not None %}{{ product.performance.image.url }}{% endif %}" 
+        alt="{{ product.performance.title }}"
     >
     <div class="product__info">
         <h1 class="product__title">{{ product.performance.title }}</h1>

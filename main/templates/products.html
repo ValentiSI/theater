@@ -35,7 +35,7 @@
 
             <img 
                 class="product-card__image" 
-                src="{% if product.image.url is not None %}{{ product.image.url }}{% endif %}" 
+                src="{% if product.performance.image.url is not None %}{{ product.performance.image.url }}{% endif %}" 
                 alt="{{ product.performance.title }}"
             />
             <h2 class="product-card__title">{{ product.title }}</h2>

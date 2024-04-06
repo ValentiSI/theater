@@ -3,7 +3,7 @@ from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 
-from .models import Order, OrderProduct, Product
+from .models import Order, OrderProduct, Performance, Product
 from .forms import SearchForm
 
 def products_view(request: HttpRequest):
@@ -21,7 +21,14 @@ def products_view(request: HttpRequest):
         'search_form': search_form
     }))
 
-
+def performance_view(request: HttpRequest, id: int):
+    performance = Performance.objects.filter(is_active=True)
+    performance = get_product_for_view(id=id)
+    
+    return HttpResponse(render(request, 'performance.html', {
+        'performance': performance
+    }))
+    
 def get_product_for_view(id: int):
     try:
         product = Product.objects.get(id=id)
