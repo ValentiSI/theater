@@ -21,10 +21,12 @@
     </form>
 </div>
 
+{% include 'pagination.html' with page_obj=products_page %}
+
 <ul class="product-list">
     <!-- li*5>div.product-card>h2.product-card__title+p.product-card__text
      -->
-    {% for product in products %}
+    {% for product in products_page %}
     <li>
         <div 
             class="
@@ -52,5 +54,7 @@
     {% endfor %}
 
 </ul>
+
+{% include 'pagination.html' with page_obj=products_page %}
 
 {% endblock %}

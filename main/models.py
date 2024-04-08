@@ -35,9 +35,6 @@ class Performance(models.Model):
         return self.title  
 
 class Product(models.Model): 
-    # image = models.ImageField(
-    #     upload_to='images/', verbose_name='Изображение', null=True, blank=True
-    # )
     performance = models.ForeignKey(
         Performance, on_delete=models.CASCADE, verbose_name='Билет спектакля'
     )
@@ -87,12 +84,19 @@ class OrderProduct(models.Model):
         verbose_name='Количество'
     )
     price = models.DecimalField(
-        max_digits=12, decimal_places=2, verbose_name='Цена'
+        max_digits=12, decimal_places=2, verbose_name='Цена за билет'
     )
-
+    
+    @property
+    def total_price(self):
+        return self.price * self.quantity
+    
+    class Meta:
+        verbose_name = 'Заказанный билет'
+        verbose_name_plural = 'Заказанные билеты'
+        
     def __str__(self):
         return f'{self.quantity} of {self.product.performance.title}'
-
 
 class Order(models.Model):
     class Status(models.TextChoices):
