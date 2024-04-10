@@ -35,9 +35,6 @@ class Performance(models.Model):
         return self.title  
 
 class Product(models.Model): 
-    # image = models.ImageField(
-    #     upload_to='images/', verbose_name='Изображение', null=True, blank=True
-    # )
     performance = models.ForeignKey(
         Performance, on_delete=models.CASCADE, verbose_name='Билет спектакля'
     )
