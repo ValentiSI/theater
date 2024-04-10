@@ -4,6 +4,6 @@
 {% block profile-content %}
 <div class='form-container'>
     <p>Приветствую вас, <b>{{ user.email }}</b>!</p>
-    <p>Это ваш личный кабинет, в котором вы можете изменять свои <a class='colored' href="{% url 'profile_info' %}">профильные данные</a>, <a class='colored' href="{% url 'profile_address' %}">адрес доставки</a> и просмотреть <a class='colored' href="{% url 'profile_orders' %}">свои заказы</a>.</p>
+    <p>Это ваш личный кабинет, в котором вы можете изменять свои <a class='colored' href="{% url 'profile_info' %}">профильные данные</a> и просмотреть <a class='colored' href="{% url 'profile_orders' %}">свои заказы</a>.</p>
 </div>
 {% endblock %}

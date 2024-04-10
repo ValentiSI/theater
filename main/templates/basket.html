@@ -97,19 +97,20 @@
     {% for item in items %}
     <li class="basket-item-container">
       <div class="basket-item" data-price="{{ item.product.price|unlocalize }}" data-id="{{ item.product.id }}">
-        <a href="{% url 'product' item.product.id %}">
+        <div class="basket-item__title">{{ item.product.title }}</div>
+        {% comment %} <a href="{% url 'product' item.product.id %}">
           <img
             class="basket-item__image"
-            src="{% if item.product.image.url is not None %}{{ item.product.image.url }}{% endif %}"
+            src="{% if item.product.performance.image.url is not None %}{{ item.product.performance.image.url }}{% endif %}"
             alt="{{ item.product.title }}"
           />
-        </a>
+        </a> {% endcomment %}
         <div class="basket-item__quantity-container">
           <button class="button basket-item__quantity-change basket-item__quantity-decrease">-</button>
           <div class="basket-item__quantity">{{ item.quantity }}</div>
           <button class="button basket-item__quantity-change basket-item__quantity-increase">+</button>
         </div>
-        <div class="basket-item__title">{{ item.product.title }}</div>
+        
         <div class="basket-item__price">{{ item.product.price|unlocalize }}</div>
       </div>
     </li>

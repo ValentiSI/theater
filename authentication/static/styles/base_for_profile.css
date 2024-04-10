@@ -4,11 +4,52 @@
     font-size: 80px;
 }
 
-/* main */
+/* Путь к текущей странице */
+
+.container {
+	width: 100%;
+	max-width: 1200px;
+	margin-right: auto;
+	margin-left: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
+	flex-wrap: wrap;
+}
+
+.page-path {
+	display: block;
+	border-bottom: 2px solid violet;
+	font-size: 14px;
+	padding-bottom: 20px;
+}
+
+.page-path ul {
+	padding: 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.page-path li {
+	padding-right: 25px;
+	list-style-type: '>';
+	padding-left: 10px;
+}
+
+.page-path .home {
+	list-style-type: none;
+	padding-left: 0;
+}
 
 .my-account {
     padding: 40px 10px;
 }
+/* -------------------------------- */
+
+/* main */
 
 .account-menu {
     min-width: 20%;

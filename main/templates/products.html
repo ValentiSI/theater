@@ -22,7 +22,7 @@
 </div>
 
 {% include 'pagination.html' with page_obj=products_page %}
-
+<hr class="products_page__horizonal_line">
 <ul class="product-list">
     {% for product in products_page %}
     <li>
@@ -35,7 +35,7 @@
 
             <img 
                 class="product-card__image" 
-                src="{% if product.image.url is not None %}{{ product.image.url }}{% endif %}" 
+                src="{% if product.performance.image.url is not None %}{{ product.performance.image.url }}{% endif %}" 
                 alt="{{ product.title }}"
             />
             <h2 class="product-card__title">{{ product.title }}</h2>
@@ -51,7 +51,7 @@
     </li>
     {% endfor %}
 </ul>
-
+<hr class="products_page__horizonal_line">
 {% include 'pagination.html' with page_obj=products_page %}
 
 {% endblock %}

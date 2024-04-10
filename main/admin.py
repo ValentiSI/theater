@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.html import format_html_join, format_html
+from django.urls import reverse
 
 from .models import Order, OrderProduct, Product, Performance
 
@@ -15,15 +17,48 @@ class OrderAdmin(admin.ModelAdmin):
         'user__email',
         'user__first_name',
         'user__last_name',
-        'status'
     )
     
-    fields = ('user', 'status')
-    
+    fields = ('user', 'status', '_id', 'total_price', 'display_order_products')
+
+    readonly_fields = ('display_order_products', '_id', 'total_price')
+
     list_filter = ('status', 'created_at', 'updated_at')
-    
+
     actions = ['cancel_order', 'set_payed', 'set_in_progress']
     
+    @admin.display(description='Товары в заказе:')
+    def display_order_products(self, obj):
+        products_data = [
+            (
+                reverse(
+                    'admin:main_product_change',
+                    args=[str(order_product.product.id)]
+                ),
+                f'{order_product.product.title} ({order_product.quantity}) * ' +
+                f'{order_product.price} = ' +
+                f'{order_product.price * order_product.quantity}'
+            )
+            for order_product in OrderProduct.objects.filter(order=obj)
+        ]
+
+        list_elements = format_html_join(
+            '',
+            '<li><a href="{}">{}</a></li>',
+            products_data
+        )
+
+        list_styles = '''
+            list-style-type:none; 
+            padding: 0; 
+            margin: 0;
+            font-weight: bold;
+        '''
+
+        return format_html(
+            '<ul style="{}">{}</ul>',
+            list_styles, list_elements
+        )
     
     def cancel_order(self, request, queryset):
         queryset.update(status=Order.CANCELED)

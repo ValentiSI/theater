@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import User
+from authentication.models import User
 import datetime
 
 class Performance(models.Model):
@@ -12,12 +12,15 @@ class Performance(models.Model):
     )
     is_premiere = models.BooleanField(default=False, verbose_name='Премьера')
     # когда состоялась премьера
-    premiere = models.TextField(
+    premiere = models.CharField(
         max_length=255, default='', blank=True, verbose_name='Премьера спектакля состоялась' 
     )
     # продолжительность спектакля
-    duration_in_of_the_performance = models.TextField(
-        verbose_name='Длительность', default='', blank=True
+    duration_in_of_the_performance = models.CharField(
+        max_length=255, verbose_name='Длительность', blank=False
+    )
+    stage_director = models.CharField(
+        max_length=255, verbose_name='Режиссер', default='', blank=False
     )
     description = models.TextField(
         verbose_name='Описание', default='', blank=True
