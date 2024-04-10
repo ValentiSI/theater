@@ -1,10 +1,15 @@
 from django.urls import include, path
-
-from .views import profile_view, sign_up
+from . import views
 
 
 urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')),
-    path('auth/register', sign_up, name='register'),
-    path('accounts/profile/', profile_view, name='profile'),
+    path('auth/register', views.register, name='register'),
+    path('accounts/profile/', views.profile, name='profile'),
+    path('logout/', views.logout, name='logout'),
+    path('accounts/profile/', views.profile, name='profile'),
+    path('accounts/profile/info/', views.profile_info, name='profile_info'),
+    path('accounts/profile/address/', views.profile_address, name='profile_address'),
+    path('accounts/profile/orders/', views.profile_orders, name='profile_orders'),
+    path('accounts/profile/orders/order/<int:order_id>/', views.profile_order_details, name='profile_order_details')
 ]

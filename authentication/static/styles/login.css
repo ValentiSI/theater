@@ -1,29 +1,51 @@
-.input-group {
-    margin-bottom: 1em;
-}
+/* Форма авторизации */
 
-.main-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.input-group {
+	width: 100%;
+	max-width: 300px;
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
 }
 
 .login-errors {
-    text-align: center;
-    margin-bottom: 1em;
-    color: #e10000;
+	margin-bottom: 10px;
+	color: #e10000;
+}
+
+.login-form-container {
+	margin-top: 30px;
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 11em;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
-.forgot-password-link-container {
-    text-align: center;
+.register-forgot-password-block {
+	display: block;
+	text-align: center;
+}
+
+.login-form input {
+	padding: 8px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border-image: linear-gradient(to right, violet, indigo) 1;
+	font-size: large;
+	padding-right: 50px;
+	outline: none;
+}
+
+.enter-button {
+	width: 110px;
+	height: 40px;
+	border: 2px solid violet;
+	font-size: medium;
+}
+
+.register-forgot-password-block p:hover {
+	color: violet;
 }

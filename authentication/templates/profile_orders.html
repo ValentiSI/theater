@@ -1,0 +1,21 @@
+{% extends 'profile.html' %}
+{% load static %}
+
+{% block profile-content %}
+	{% if orders %}
+	<div class='form-container orders'>
+		{% for order in orders %}
+			<div class='account-order'>
+				<p class='order-number'><b>Заказ No{{ order.id }}</b> от {{ order.created_at }}</p>
+				<p class='order-status'>Сумма: <b>{{ order.total_price|add:order.delivery.price }} ₽</b>, Статус: <b>{{ order.display_status }}</b></p>
+				<a class='order-details-link'href="{% url 'profile_order_details' order_id=order.id %}"><button class='gradient-button order-details-button' type='submit'>ПОДРОБНЕЕ</button></a>
+			</div>
+		{% endfor %}
+	</div>
+	{% else %}
+	<div class='form-container account-orders'>
+		<p>У вас пока нет заказов</p>
+		<a class='browse-products-link'href="{% url 'home' %}"><button class='gradient-button browse-products-button' type='submit'>ПОСМОТРЕТЬ ТОВАРЫ</button></a>
+	</div>
+	{% endif %}
+{% endblock %}

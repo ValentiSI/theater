@@ -1,0 +1,33 @@
+{% extends 'profile.html' %}
+{% load static %}
+
+{% block profile-content %}
+    <form class='form-container' action="{% url 'profile_address' %}" method="post">
+        {% csrf_token %}
+        <div class='form-row'>
+            <div class='city form'>
+                <label for="id_city">ГОРОД / НАСЕЛЁННЫЙ ПУНКТ <span class="required">*</span></label>
+                <input class='registration-input' type="text" name="city" id="id_city" required value="{{ user.city }}">
+            </div>
+        </div>
+        <div class='form-row'>
+            <div class='street form'>
+                <label for="id_street">УЛИЦА / ДОМ / КОРПУС <span class="required">*</span></label>
+                <input class='registration-input' type="text" name="street" id="id_street" required value="{{ user.street }}">
+            </div>
+        </div>
+        <div class='form-row'>
+            <div class='apartment form'>
+                <label for="id_apartment">КВАРТИРА / ДОМ <span class="required">*</span></label>
+                <input class='registration-input' type="text" name="apartment" id="id_apartment" required value="{{ user.apartment }}">
+            </div>
+        </div>
+        <div class='form-row'>
+            <div class='phone form'>
+                <label for="id_phone">ТЕЛЕФОН <span class="required">*</span></label>
+                <input class='registration-input' type="tel" name="phone" id="id_phone" required value="{{ user.phone }}">
+            </div>
+        </div>
+        <button class='gradient-button save-changes-button' type='submit'>СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+    </form>
+{% endblock %}

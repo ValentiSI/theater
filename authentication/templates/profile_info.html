@@ -1,0 +1,53 @@
+{% extends 'base_for_profile.html' %}
+{% load static %}
+
+{% block profile-content %}
+	<form class='form-container' action="{% url 'profile_info' %}" method="post">
+        {% csrf_token %}
+        <div class='form-row account-name-surname'>
+            <div class='name form'>
+                <label for="id_name">ИМЯ <span class="required">*</span></label>
+                <input class='registration-input' type="text" name="name" id="id_name" value="{{ user.name }}">
+            </div>
+            <div class='surname form'>
+                <label for="id_surname">ФАМИЛИЯ <span class="required">*</span></label>
+                <input class='registration-input' type="text" name="surname" id="id_surname" value="{{ user.surname }}">
+            </div>
+        </div>
+        <div class='form-row'>
+            <div class='email form'>
+                <label for="id_email">EMAIL <span class="required">*</span></label>
+                <input class='registration-input' type="email" name="email" id="id_email" value="{{ user.email }}">
+            </div>
+        </div>
+        {% comment %} <h3>Изменить пароль</h3>
+        <div class='form-row' id='account-current-password-form'>
+            <div class='current-password form'>
+                <label for="id_old_password">ТЕКУЩИЙ ПАРОЛЬ <span class="required">*</span></label>
+                <input class='registration-input' type="password" name="current_password" id="id_old_password" value="{{ user.password | slice:':8' }}">
+            </div>
+        </div>
+        <div class='form-row' id='account-password-form'>
+            <div class='password form'>
+                <label for="id_new_password1">НОВЫЙ ПАРОЛЬ <span class="required">*</span></label>
+                <input class='registration-input' type="password" name="new_password" id="id_new_password1">
+                <div id="account-message">
+                    <h4>Пароль должен содержать следующее:</h4>
+                    <div class="password-strength-check">
+                        <p id="account-letter" class="invalid">Маленькие буквы</p>
+                        <p id="account-capital" class="invalid">Большие буквы</p>
+                        <p id="account-number" class="invalid">Число</p>
+                        <p id="account-length" class="invalid">Минимум 8 символов</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='form-row' id='account-password-confirm-form'>
+            <div class='password-confirm form'>
+                <label for="id_new_password2">ПОДТВЕРЖДЕНИЕ ПАРОЛЯ <span class="required">*</span></label>
+                <input class='registration-input' type="password" name="confirm_password" id="id_new_password2">
+            </div>
+        </div> {% endcomment %}
+        <button class='gradient-button save-changes-button' type='submit'>СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
+    </form>
+{% endblock %}

@@ -1,25 +1,61 @@
-.main-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
+/* Форма регистрации */
 
-.register-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: max-content;
+.input-group {
+	width: 100%;
+	max-width: 300px;
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
 }
 
 .register-errors {
-    text-align: center;
-    margin-bottom: 0.5em;
-    color: #e10000;
+	margin-bottom: 10px;
+	color: #e10000;
 }
 
-.input-group {
-    margin-bottom: 1em;
+.register-form-container {
+	margin-top: 30px;
+}
+
+.register-form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.register-forgot-password-block {
+	display: block;
+	text-align: center;
+}
+
+.register-form input {
+	padding: 8px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border-image: linear-gradient(to right, violet, indigo) 1;
+	font-size: large;
+	padding-right: 50px;
+	outline: none;
+}
+
+.reg-button {
+	width: 210px;
+	border: 2px solid violet;
+	font-size: medium;
+	padding: 10px;
+}
+
+.link:hover {
+	color: violet
+}
+
+@media screen and (max-width: 320px) {
+
+	.reg-button {
+		width: auto;
+		height: 30px;
+		font-size: 10px;
+		padding: 5px;
+	}
 }

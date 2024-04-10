@@ -4,44 +4,45 @@
 
 {% block head %}
 
-<title>Регистрация</title>
+<title>Register</title>
 <link rel="stylesheet" href="{% static 'styles/register.css' %}">
 
 {% endblock %}
 
 {% block content %}
-
-<div class="register-errors">
-    {% if form.errors %}
-    <p>Произошла ошибка при входе.</p>
-    {% endif %} 
-    {% if user.is_authenticated %}
-    <p>
-      Вы уже авторизованы.
-    </p>
-    {% endif %}
-  </div>
-
-<form class="register-form" method="POST" action="{% url 'register' %}">
-	{% csrf_token %}
-    <div class="input-group">
-        {{ form.username.label_tag }} {{ form.username }}
-    </div>
-    <div class="input-group">
-        {{ form.email.label_tag }} {{ form.email }}
-    </div>
-    <div class="input-group">
-        {{ form.password1.label_tag }} {{ form.password1 }}
-    </div>
-    <div class="input-group">
-        {{ form.password2.label_tag }} {{ form.password2 }}
-    </div>
-    <input class="button" type="submit" value="Зарегистрироваться" />
-</form>
-
-<p>
-    <a class="link" href="{% url 'login' %}">Уже есть аккаунт?</a>
-</p>
-  
-
+	<section class="section-title">
+		<div class="container page-title">
+			<h1>Регистрация</h1>
+		</div>
+	</section>
+	<section class="page-path container">
+		<ul>
+			<li class="home"><a class="colored" href="{% url 'home' %}">Главная</a></li>
+			<li>Регистрация</li>
+		</ul>
+	</section>
+	<div class='container register-form-container'>
+		<div class="register-errors">
+			{% if form.errors %}
+				<p>Произошла ошибка при входе.</p>
+			{% endif %}
+			{% if user.is_authenticated %}
+				<p>Вы уже авторизованы.</p>
+			{% endif %}
+		</div>
+		<form class="register-form" method="POST" action="{% url 'register' %}">
+			{% csrf_token %}
+			<div class="input-group">
+				{{ form.email.label_tag }} {{ form.email }}
+			</div>
+			<div class="input-group">
+				{{ form.password1.label_tag }} {{ form.password1 }}
+			</div>
+			<div class="input-group">
+				{{ form.password2.label_tag }} {{ form.password2 }}
+			</div>
+			<button class='gradient-button reg-button' type="submit">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+		</form>
+		<p><a class="link" href="{% url 'login' %}">Уже есть аккаунт?</a></p>
+	</div>
 {% endblock content%}

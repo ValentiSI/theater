@@ -1,0 +1,56 @@
+{% extends 'profile.html' %}
+{% load static %}
+
+{% block profile-content %}
+	<div class='form-container orders'>
+		<div class='account-order-detail'>
+			<p class='order-number'><b>Заказ No{{ order.id }}</b> от {{ order.created_at }}</p>
+			<p class='order-status'>Статус: <b>{{ order.display_status }}</b></p>
+			{% for item in order_items %}
+			<div class='center'>
+				<div class='center-left {% if item.product.category.name == "Картины" %} paintings {% endif %}'>
+					<img src="{{ item.product.image.url }}" alt="painting">
+				</div>
+				<div class='center-right'>
+					<div class='product-title'>{{ item.product.title }}</div>
+					<div class='product-info'>
+						<ul>
+							<li><b>Категория:</b> {{ item.product.category.name }},</li>
+							<li><b>Размер:</b> {{ item.product.size }},</li>
+							<li><b>Материал:</b> {{ item.product.material }}</li>
+						</ul>
+						{% if item.product.category.name == "Картины" %}
+						<ul>
+							<li><b>Наличие подрамника:</b> {{ item.product.display_frame }},</li>
+							<li><b>Наличие багета:</b> {{ item.product.display_baguette }},</li>
+							<li><b>Наличие паспарту:</b> {{ item.product.display_passe_partout }},</li>
+							<li><b>Оформление:</b> {{ item.product.decor }}</li>
+						</ul>
+						{% endif %}
+					</div>
+					<div class='product-price'>
+						<div class='price'><b>Цена:</b> {{ item.product.price }} ₽</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			<div class='bottom'>
+				<a href="{% url 'profile_orders' %}"><button class='gradient-button back-button'>НАЗАД К ЗАКАЗАМ</button></a>
+				<div class='total-price in-cart'>
+					<div class='total'>
+						<p><span class='grey'>Итого</span></p>
+						<p><b>{{ order.total_price }} ₽</b></p>
+					</div>
+					<div class='delivery'>
+						<p><span class='grey'>Доставка</span></p>
+						<p><b>{{ order.delivery.price }} ₽</b></p>
+					</div>
+					<div class='to-pay'>
+						<p><span class='grey'>К оплате</span></p>
+						<p><b>{{ order.total_price|add:order.delivery.price }} ₽</b></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
