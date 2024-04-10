@@ -1,7 +1,8 @@
 from audioop import reverse
-from django.http import Http404, HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
+from django.core.paginator import Paginator
 
 from .models import Order, OrderProduct, Performance, Product
 from .forms import SearchForm
@@ -10,6 +11,12 @@ def products_view(request: HttpRequest):
     products = Product.objects.filter(is_active=True)
     products = products.order_by('-count', '-show_date')
     
+    paginator = Paginator(products, 1)
+
+    page_number = request.GET.get("page", 1)
+    max_page = paginator.num_pages
+    paged_products = paginator.get_page(page_number)
+    
     search_form = SearchForm(request.GET)
     if search_form.is_valid():
         products = products.filter(
@@ -17,13 +24,13 @@ def products_view(request: HttpRequest):
         )
     
     return HttpResponse(render(request, 'products.html', {
-        'products': products,
+        'products_page': paged_products,
+        'max_page': max_page,
         'search_form': search_form
     }))
 
-def performance_view(request: HttpRequest, id: int):
-    performance = Performance.objects.filter(is_active=True)
-    performance = get_product_for_view(id=id)
+def performance_view(request: HttpRequest):
+    performance = Performance.objects.all
     
     return HttpResponse(render(request, 'performance.html', {
         'performance': performance
@@ -47,7 +54,7 @@ def product_view(request: HttpRequest, id: int):
     }))
 
 
-def add_to_basket_view(request: HttpRequest, id: int):
+def basket_add_view(request: HttpRequest, id: int):
     product = get_product_for_view(id=id)
 
     if product.count < 1:
@@ -73,6 +80,28 @@ def add_to_basket_view(request: HttpRequest, id: int):
     return redirect('basket')
 
 
+def basket_increase_view(request: HttpRequest, id: int):
+    items = request.session.get('basket', [])
+    product = get_product_for_view(id=id)
+
+    found_item = next(
+        (item for item in items if item['product_id'] == id),
+        None,
+    )
+
+    if found_item is None:
+        raise Http404('Товар не найден')
+
+    if product.count < found_item['quantity'] + 1:
+        raise HttpRequest('Товар закончился', status=400)
+
+    found_item['quantity'] = found_item['quantity'] + 1
+
+    request.session['basket'] = items
+
+    return HttpResponse(status=200)
+
+
 def basket_view(request: HttpRequest):
     items = request.session.get('basket', [])
 
@@ -94,25 +123,57 @@ def basket_clear_view(request: HttpRequest):
     return redirect('basket')
 
 
+def basket_decrease_view(request: HttpRequest, id: int):
+    items = request.session.get('basket', [])
+
+    found_item = next(
+        (item for item in items if item['product_id'] == id),
+        None,
+    )
+
+    if found_item is None:
+        raise Http404('Товар не найден')
+
+    if found_item['quantity'] > 1:
+        found_item['quantity'] = found_item['quantity'] - 1
+    else:
+        items.remove(found_item)
+
+    request.session['basket'] = items
+
+    return HttpResponse(status=200)
+
+
 @require_http_methods(["POST"])
 def order_view(request: HttpRequest):
     if not request.user.is_authenticated:
-            login_page = redirect('login')
-            login_page['Location'] += '?next=/' + reverse('basket')
-            
-            return login_page
-    
+        login_page = redirect('login')
+        login_page['Location'] += '?next=' + reverse('basket')
+
+        return login_page
+
     if request.method == 'POST':
         order = Order()
         order.user = request.user
         order.save()
 
         basket = request.session.get('basket', [])
+
+        if len(basket) == 0:
+            return redirect('basket')
+
+        for item in basket:
+            product = Product.objects.get(id=item['product_id'])
+            if item['quantity'] > product.count:
+                return HttpResponseBadRequest('Товара не хватает')
+
         for item in basket:
             order_product = OrderProduct(order=order)
             order_product.product = Product.objects.get(id=item['product_id'])
             order_product.quantity = item['quantity']
+            order_product.product.count -= order_product.quantity
             order_product.price = order_product.product.price
+            order_product.product.save()
             order_product.save()
 
         request.session.update({'basket': []})
@@ -120,15 +181,14 @@ def order_view(request: HttpRequest):
         return redirect('get_order', id=order.id)
 
 
-@require_http_methods(["GET"])    
+@require_http_methods(["GET"])
 def get_order_view(request: HttpRequest, id: int):
     try:
         order = Order.objects.get(id=id)
     except Order.DoesNotExist:
         raise Http404('Заказ не найден')
-    
+
     return HttpResponse(render(request, 'order.html', {
         'order': order,
         'products': OrderProduct.objects.filter(order=order),
-    }))    
-        
+    }))

@@ -51,10 +51,14 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(OrderProduct)
 class OrderProductAdmin(admin.ModelAdmin):
-    list_display = ('order', 'product', 
-                    'quantity', 'price')
+    list_display = ('order', 'product', 'user_email',   
+                    'quantity', 'price', 'total_price')
 
     def user_email(self, obj):
         return obj.order.user.email
     user_email.short_description = 'Email пользователя'
+    
+    @admin.display(description='Сумма')
+    def total_price(self, obj):
+        return obj.total_price
     
