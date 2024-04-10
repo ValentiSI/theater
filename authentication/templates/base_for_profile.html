@@ -18,9 +18,6 @@
         {% if request.path == '/accounts/profile/info/' %}
         <li class="colored"><a href="{% url 'profile' %}">Личный кабинет</a></li>
         <li>Данные аккаунта</li>
-        {% elif request.path == '/accounts/profile/address/' %}
-        <li class="colored"><a href="{% url 'profile' %}">Личный кабинет</a></li>
-        <li>Мой адрес</li>
         {% elif request.path == '/accounts/profile/orders/' %}
         <li class="colored"><a href="{% url 'profile' %}">Личный кабинет</a></li>
         <li>Мои заказы</li>
@@ -34,7 +31,6 @@
         <ul>
             <a href="{% url 'profile' %}"><li class='bordered'>Приветствие</li></a>
             <a href="{% url 'profile_info' %}"><li class='bordered'>Данные аккаунта</li></a>
-            <a href="{% url 'profile_address' %}"><li class='bordered'>Мой адрес</li></a>
             <a href="{% url 'profile_orders' %}"><li class='bordered'>Мои заказы</li></a>
             <a href="{% url 'logout' %}"><li>Выйти</li></a>
         </ul>

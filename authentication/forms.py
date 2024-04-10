@@ -19,10 +19,4 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['name', 'surname', 'email']
-
-
-class UserProfileAddressForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['city', 'street', 'apartment', 'phone']
-        
+     

@@ -8,24 +8,11 @@
 			<p class='order-status'>Статус: <b>{{ order.display_status }}</b></p>
 			{% for item in order_items %}
 			<div class='center'>
-				<div class='center-left {% if item.product.category.name == "Картины" %} paintings {% endif %}'>
-					<img src="{{ item.product.image.url }}" alt="painting">
+				<div class='center-left'>
+					<img src="{{ item.product.performance.image.url }}" alt="painting">
 				</div>
 				<div class='center-right'>
-					<div class='product-title'>{{ item.product.title }}</div>
-					<div class='product-info'>
-						<ul>
-							<li><b>Категория:</b> {{ item.product.category.name }},</li>
-							<li><b>Размер:</b> {{ item.product.size }},</li>
-							<li><b>Материал:</b> {{ item.product.material }}</li>
-						</ul>
-						{% if item.product.category.name == "Картины" %}
-						<ul>
-							<li><b>Наличие подрамника:</b> {{ item.product.display_frame }},</li>
-							<li><b>Наличие багета:</b> {{ item.product.display_baguette }},</li>
-							<li><b>Наличие паспарту:</b> {{ item.product.display_passe_partout }},</li>
-							<li><b>Оформление:</b> {{ item.product.decor }}</li>
-						</ul>
+					<div class='product-title'>{{ item.product.performance.title }}</div>
 						{% endif %}
 					</div>
 					<div class='product-price'>
@@ -41,13 +28,9 @@
 						<p><span class='grey'>Итого</span></p>
 						<p><b>{{ order.total_price }} ₽</b></p>
 					</div>
-					<div class='delivery'>
-						<p><span class='grey'>Доставка</span></p>
-						<p><b>{{ order.delivery.price }} ₽</b></p>
-					</div>
 					<div class='to-pay'>
 						<p><span class='grey'>К оплате</span></p>
-						<p><b>{{ order.total_price|add:order.delivery.price }} ₽</b></p>
+						<p><b>{{ order.total_price}} ₽</b></p>
 					</div>
 				</div>
 			</div>

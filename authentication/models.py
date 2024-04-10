@@ -9,9 +9,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     name = models.CharField(max_length=255, blank=True, verbose_name='Имя')
     surname = models.CharField(max_length=255, blank=True, verbose_name='Фамилия')
-    city = models.CharField(max_length=255, blank=True, verbose_name='Город')
-    street = models.CharField(max_length=255, blank=True, verbose_name='Улица')
-    apartment = models.IntegerField(default=0, blank=True, verbose_name='Дом/Квартира')
     phone = models.CharField(max_length=255, blank=True, verbose_name='Телефон')
     email = models.CharField(max_length=255, blank=False, unique=True, verbose_name='Email')
     is_staff = models.BooleanField(default=False, verbose_name='Сотрудник')

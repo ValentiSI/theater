@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 import datetime
 
@@ -10,6 +11,10 @@ class Performance(models.Model):
         upload_to='images/', verbose_name='Изображение', null=True, blank=True
     )
     is_premiere = models.BooleanField(default=False, verbose_name='Премьера')
+    # когда состоялась премьера
+    premiere = models.TextField(
+        max_length=255, default='', blank=True, verbose_name='Премьера спектакля состоялась' 
+    )
     # продолжительность спектакля
     duration_in_of_the_performance = models.TextField(
         verbose_name='Длительность', default='', blank=True
@@ -144,5 +149,5 @@ class Order(models.Model):
         verbose_name_plural = 'Заказы'
 
     def __str__(self):
-        return f'Order from {str(self.user)}'
+        return f'Заказ от {str(self.user)}'
     

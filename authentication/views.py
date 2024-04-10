@@ -1,8 +1,8 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from main.views import calculate_total_price
-from main.models import Order, OrderItems, Delivery
-from .forms import CustomUserCreationForm, UserProfileForm, UserProfileAddressForm
+from main.models import Order, OrderProduct
+from .forms import CustomUserCreationForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
@@ -54,29 +54,13 @@ def profile_info(request: HttpRequest):
             user.name = form.cleaned_data['name']
             user.surname = form.cleaned_data['surname']
             user.email = form.cleaned_data['email']
+            user.phone = form.cleaned_data['phone']
             user.save()
             return redirect('profile_info')
     else:
         form = UserProfileForm()
     return HttpResponse(render(request, 'profile_info.html', {
         'form': form}))
-
-
-@login_required
-def profile_address(request: HttpRequest):
-    if request.method == 'POST':
-        form = UserProfileAddressForm(request.POST, instance=request.user)
-        if form.is_valid():
-            user = request.user
-            user.city = form.cleaned_data['city']
-            user.street = form.cleaned_data['street']
-            user.apartment = form.cleaned_data['apartment']
-            user.phone = form.cleaned_data['phone']
-            user.save()
-            return redirect('profile_address')
-    else:
-        form = UserProfileAddressForm()
-    return HttpResponse(render(request, 'profile_address.html', {"form": form}))
 
 
 def profile_orders(request: HttpRequest):
@@ -89,11 +73,9 @@ def profile_orders(request: HttpRequest):
 
 def profile_order_details(request: HttpRequest, order_id: int):
     order = Order.objects.get(id=order_id)
-    order_items = OrderItems.objects.filter(order=order)
-    deliveries = Delivery.objects.all()
+    order_items = OrderProduct.objects.filter(order=order)
     return HttpResponse(render(request, 'profile_order_details.html', {
         "order": order,
-        "order_items": order_items,
-        "deliveries": deliveries
+        "order_items": order_items
     }))
     

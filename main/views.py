@@ -1,11 +1,14 @@
 from audioop import reverse
-from django.http import Http404, HttpRequest, HttpResponse, HttpResponseBadRequest
+from django.http import (
+    Http404, HttpRequest, HttpResponse, HttpResponseBadRequest
+)
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator
 
 from .models import Order, OrderProduct, Performance, Product
 from .forms import SearchForm
+
 
 def products_view(request: HttpRequest):
     products = Product.objects.filter(is_active=True)
@@ -14,7 +17,6 @@ def products_view(request: HttpRequest):
     paginator = Paginator(products, 1)
 
     page_number = request.GET.get("page", 1)
-    max_page = paginator.num_pages
     paged_products = paginator.get_page(page_number)
     
     search_form = SearchForm(request.GET)
@@ -25,7 +27,6 @@ def products_view(request: HttpRequest):
     
     return HttpResponse(render(request, 'products.html', {
         'products_page': paged_products,
-        'max_page': max_page,
         'search_form': search_form
     }))
 
@@ -192,3 +193,44 @@ def get_order_view(request: HttpRequest, id: int):
         'order': order,
         'products': OrderProduct.objects.filter(order=order),
     }))
+
+
+@require_http_methods(["GET"])
+def cancel_order_view(request: HttpRequest, id: int):
+    try:
+        order = Order.objects.get(id=id)
+    except Order.DoesNotExist:
+        raise Http404('Заказ не найден')
+
+    if order.user != request.user:
+        return HttpResponseBadRequest(
+            'Вы не можете отменить этот заказ',
+            status='403'
+        )
+
+    if not order.is_cancelable:
+        return HttpResponseBadRequest(
+            'Этот заказ уже нельзя отменить. Обратитесь к администратору.',
+            status='400'
+        )
+
+    for order_product in OrderProduct.objects.filter(order=order):
+        order_product.product.count += order_product.quantity
+        order_product.product.save()
+
+    order.status = Order.Status.CANCELED
+    order.save()
+
+    return redirect('profile')
+
+def calculate_total_price(request):
+    shopping_cart = request.session.get('shopping_cart', [])
+
+    total_price = 0
+    for item in shopping_cart:
+        product_id = item['product_id']
+        quantity = item['quantity']
+        product = get_product_for_view(product_id=product_id)
+        total_price += product.price * quantity
+
+    return total_price
