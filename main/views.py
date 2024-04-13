@@ -5,15 +5,47 @@ from django.http import (
 from django.shortcuts import redirect, render
 from django.views.decorators.http import require_http_methods
 from django.core.paginator import Paginator
+from django.urls import reverse
+from main.utils import q_search
 
-from .models import Order, OrderProduct, Performance, Product
+from .models import Order, OrderProduct, Performance, Product, Categories
 from .forms import SearchForm
 
+def get_basket_quantity(request: HttpRequest):
+    items = request.session.get('basket', [])
 
-def products_view(request: HttpRequest):
-    products = Product.objects.filter(is_active=True)
-    products = products.order_by('-count', '-show_date')
+    quantities = sum([item['quantity'] for item in items])
+
+    return quantities
+
+def products_view(request: HttpRequest, category_slug=None):
     
+    page = request.GET.get('page', 1)
+    on_sale = request.GET.get('on_sale', None)
+    order_by = request.GET.get('order_by', None)
+    query = request.GET.get('q', None)
+    
+    title_text = Categories.objects.get(slug=category_slug).name
+    
+    if category_slug == None:
+        products = Product.objects.filter(is_active=True)
+        products = products.order_by('-count', '-show_date')
+
+        if query:
+            products = q_search(query)
+        
+    elif query:
+        products = q_search(query)
+    else:
+        products = Product.objects.filter(category__slug=category_slug, is_active=True)
+        products = products.order_by('-count')
+        
+    if on_sale:
+        products = products.filter(original_price__isnull=False)
+        
+    if order_by and order_by != 'default':
+        products = products.order_by(order_by)
+            
     search_form = SearchForm(request.GET)
     if search_form.is_valid():
         products = products.filter(
@@ -25,15 +57,26 @@ def products_view(request: HttpRequest):
     page_number = request.GET.get("page", 1)
     paged_products = paginator.get_page(page_number)
     
+
     if not request.GET._mutable:
         request.GET._mutable = True
 
     request.GET['query'] = search_form.cleaned_data['query']
 
-    return HttpResponse(render(request, 'products.html', {
-        'products_page': paged_products,
-        'search_form': search_form
-    }))
+    current_page = paginator.page(page)
+    context = {
+        'products': current_page,
+        'quantities': get_basket_quantity(request),
+        'title_text': title_text,
+        'slug_url': category_slug
+    }
+    
+    return HttpResponse( render(request, 'main.html', context))
+
+    # return HttpResponse(render(request, 'products.html', {
+    #     'products_page': paged_products,
+    #     'search_form': search_form
+    # }))
 
 def performance_view(request: HttpRequest):
     performance = Performance.objects.all
@@ -54,9 +97,23 @@ def get_product_for_view(id: int):
     return product
 
 
-def product_view(request: HttpRequest, id: int):
+# def product_view(request: HttpRequest, id: int):
+#     return HttpResponse(render(request, 'product.html', {
+#         'product': get_product_for_view(id=id)
+#     }))
+
+def product_view(request: HttpRequest, id=False, product_slug=False):
+
+    if id:
+        product = get_product_for_view(id=id)
+    else:
+        product = Product.objects.get(slug=product_slug)
+
+    if not product.is_active:
+        raise Http404('Билет не доступен')
     return HttpResponse(render(request, 'product.html', {
-        'product': get_product_for_view(id=id)
+        'product': product,
+        'quantities': get_basket_quantity(request),
     }))
 
 
@@ -197,6 +254,7 @@ def get_order_view(request: HttpRequest, id: int):
     return HttpResponse(render(request, 'order.html', {
         'order': order,
         'products': OrderProduct.objects.filter(order=order),
+        'quantities': get_basket_quantity(request),
     }))
 
 

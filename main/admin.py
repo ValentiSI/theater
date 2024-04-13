@@ -2,11 +2,16 @@ from django.contrib import admin
 from django.utils.html import format_html_join, format_html
 from django.urls import reverse
 
-from .models import Order, OrderProduct, Product, Performance
+from .models import Order, OrderProduct, Product, Performance, Categories
 
 admin.site.register(Product)
 admin.site.register(Performance)
 
+
+@admin.register(Categories)
+class CategoriesAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+    filter_vertical = ('category',)
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -17,6 +22,7 @@ class OrderAdmin(admin.ModelAdmin):
         'user__email',
         'user__first_name',
         'user__last_name',
+        'user__phone'
     )
     
     fields = ('user', 'status', '_id', 'total_price', 'display_order_products')
@@ -86,12 +92,29 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(OrderProduct)
 class OrderProductAdmin(admin.ModelAdmin):
-    list_display = ('order', 'product', 'user_email',   
+    list_display = ('order', 'product', 'user_email', 'user_phone',
+                    'user_name', 'user_surname', 'show_date',  
                     'quantity', 'price', 'total_price')
 
     def user_email(self, obj):
         return obj.order.user.email
     user_email.short_description = 'Email пользователя'
+    
+    def user_phone(self, obj):
+        return obj.order.user.phone
+    user_phone.short_description = 'Телефон пользователя'
+    
+    def user_name(self, obj):
+        return obj.order.user.name
+    user_name.short_description = 'Имя пользователя'
+    
+    def user_surname(self, obj):
+        return obj.order.user.surname
+    user_surname.short_description = 'Фамилия пользователя'
+    
+    def show_date(self, obj):
+        return obj.product.show_date
+    show_date.short_description = 'Дата'
     
     @admin.display(description='Сумма')
     def total_price(self, obj):
