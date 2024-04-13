@@ -7,9 +7,9 @@ from .managers import CustomUserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
 
-    name = models.CharField(max_length=255, blank=True, verbose_name='Имя')
-    surname = models.CharField(max_length=255, blank=True, verbose_name='Фамилия')
-    phone = models.CharField(max_length=255, blank=True, verbose_name='Телефон')
+    name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Имя')
+    surname = models.CharField(max_length=255, blank=True, null=True, verbose_name='Фамилия')
+    phone = models.CharField(max_length=255, blank=False, null=True, verbose_name='Телефон')
     email = models.CharField(max_length=255, blank=False, unique=True, verbose_name='Email')
     is_staff = models.BooleanField(default=False, verbose_name='Сотрудник')
     is_active = models.BooleanField(default=True, verbose_name='Активный')
