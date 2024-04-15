@@ -7,23 +7,6 @@ urlpatterns = [
     path('product/<int:id>/', views.product_view, name='product'),
     path('performance/', views.performance_view, name='performance'),
     path(
-        '<slug:category_slug>/', 
-        views.products_view, 
-        name='products'),
-    path(
-        'product/<slug:product_slug>/', 
-         views.product_view, 
-         name='product'),
-    path(
-        'performance/<slug:performance_slug>/',
-        views.performance_view,
-        name='performance'
-    ),
-    path(
-        'search/', 
-        views.products_view, 
-        name='search'),
-    path(
         'product/<int:id>/add/',
         views.basket_add_view,
         name='add_to_basket'
@@ -47,4 +30,13 @@ urlpatterns = [
         views.cancel_order_view,
         name='cancel_order'
     ),
+    path(
+        'product/<slug:product_slug>/', 
+         views.product_view, 
+         name='product'),
+    path(
+        'performance/<slug:performance_slug>/',
+        views.performance_view,
+        name='performance'
+    )
 ]

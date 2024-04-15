@@ -11,75 +11,36 @@ from main.utils import q_search
 from .models import Order, OrderProduct, Performance, Product, Categories
 from .forms import SearchForm
 
-def get_basket_quantity(request: HttpRequest):
-    items = request.session.get('basket', [])
-
-    quantities = sum([item['quantity'] for item in items])
-
-    return quantities
-
-def products_view(request: HttpRequest, category_slug='all'):
-    
-    page = request.GET.get('page', 1)
-    on_sale = request.GET.get('on_sale', None)
-    order_by = request.GET.get('order_by', None)
+def products_view(request: HttpRequest):
+    category_slug = request.GET.get('category', None)
     query = request.GET.get('q', None)
     
-    title_text = Categories.objects.get(slug=category_slug).name
+    products = Product.objects.filter(is_active=True)
+    print(category_slug)
+    if category_slug is not None and category_slug != 'all':
+        products = Product.objects.filter(performance__category__slug=category_slug)
     
-    if category_slug == 'all':
-        products = Product.objects.filter(is_active=True)
-        products = products.order_by('-count', '-show_date')
-
-        if query:
-            products = q_search(query)
+    products = products.order_by('-count', '-show_date')
         
-    elif query:
+    if query:
         products = q_search(query)
-    else:
-        products = Product.objects.filter(category__slug=category_slug, is_active=True)
-        products = products.order_by('-count')
         
-    if on_sale:
-        products = products.filter(original_price__isnull=False)
-        
-    if order_by and order_by != 'default':
-        products = products.order_by(order_by)
+    products = products.order_by('show_date')
             
     search_form = SearchForm(request.GET)
-    if search_form.is_valid():
-        products = products.filter(
-            performance__title__icontains=search_form.cleaned_data['query']
-        )
         
-    paginator = Paginator(products, 1)
+    paginator = Paginator(products, 2)
 
     page_number = request.GET.get("page", 1)
     paged_products = paginator.get_page(page_number)
-    
 
-    if not request.GET._mutable:
-        request.GET._mutable = True
-
-    request.GET['query'] = search_form.cleaned_data['query']
-
-    current_page = paginator.page(page)
     context = {
-        'products': current_page,
-        'quantities': get_basket_quantity(request),
-        'title_text': title_text,
-        'slug_url': category_slug
-    }
-    
-    return HttpResponse( render(request, 'products.html', context, {
         'products_page': paged_products,
         'search_form': search_form
-    }))
+    }
+    
+    return HttpResponse( render(request, 'products.html', context))
 
-    # return HttpResponse(render(request, 'products.html', {
-    #     'products_page': paged_products,
-    #     'search_form': search_form
-    # }))
 
 def performance_view(request: HttpRequest):
     performance = Performance.objects.all
@@ -100,17 +61,18 @@ def get_product_for_view(id: int):
     return product
 
 
-def product_view(request: HttpRequest, id: int):
-    return HttpResponse(render(request, 'product.html', {
-        'product': get_product_for_view(id=id)
-    }))
+# def product_view(request: HttpRequest, id: int):
+#     return HttpResponse(render(request, 'product.html', {
+#         'product': get_product_for_view(id=id),
+#         'quantities': get_basket_quantity(request),
+#     }))
 
 def product_view(request: HttpRequest, id=False, performance_slug=False):
 
     if id:
         product = get_product_for_view(id=id)
     else:
-        product = Product.objects.get(slug=performance_slug)
+        product = Product.objects.get(performance=performance_slug)
 
     if not product.is_active:
         raise Http404('Билет не доступен')

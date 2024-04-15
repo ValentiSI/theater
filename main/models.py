@@ -54,6 +54,7 @@ class Performance(models.Model):
         auto_now=True, verbose_name='Дата обновления'
     )
     
+
     class Meta:
         verbose_name = 'Спектакль'
         verbose_name_plural = 'Спектакли'

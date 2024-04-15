@@ -12,6 +12,9 @@
 
 <div class="search-container">
     <form class="search-form" method="GET" action="{% url 'products' %}">
+        <div class="input-group search-form__categories-input">
+            {{ search_form.category }}
+        </div>
         <div class="complex-input">
             <div class="search-form__input_container">{{ search_form.query }}</div>
             <button class="search-form__button" type="submit">
@@ -45,7 +48,15 @@
             {% endif %}
             <p class="product-card__price">{{ product.price }}</p>
             </div>
-            
+            <form action="{% url 'add_to_basket' product.id %}" class="product__add-to-basket-form">
+                <button 
+                    type="submit"
+                    class="button product__add-to-basket-button"
+                    {% if product.count < 1 %}disabled{% endif %}
+                >
+                    <i class="fas fa-shopping-cart"></i>
+                </button>
+            </form>
             <a href="{% url 'product' product.id %}" class="button product-card__link">Подробнее</a>
         </div>
     </li>

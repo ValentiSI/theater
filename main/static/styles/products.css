@@ -2,6 +2,16 @@
     margin-bottom: 2em;
 }
 
+.search-form {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.search-form__categories-input {
+    width: 20%;
+}
+
 .search-form__input_container {
     width: 100%;
     display: block;
