@@ -5,12 +5,16 @@ from django.urls import reverse
 from .models import Order, OrderProduct, Product, Performance, Categories
 
 admin.site.register(Product)
-admin.site.register(Performance)
+# admin.site.register(Performance)
 
 
 @admin.register(Categories)
 class CategoriesAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
+
+@admin.register(Performance)
+class PerformanceAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
     filter_vertical = ('category',)
 
 @admin.register(Order)

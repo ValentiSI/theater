@@ -18,7 +18,7 @@ def get_basket_quantity(request: HttpRequest):
 
     return quantities
 
-def products_view(request: HttpRequest, category_slug=None):
+def products_view(request: HttpRequest, category_slug='all'):
     
     page = request.GET.get('page', 1)
     on_sale = request.GET.get('on_sale', None)
@@ -27,7 +27,7 @@ def products_view(request: HttpRequest, category_slug=None):
     
     title_text = Categories.objects.get(slug=category_slug).name
     
-    if category_slug == None:
+    if category_slug == 'all':
         products = Product.objects.filter(is_active=True)
         products = products.order_by('-count', '-show_date')
 
@@ -71,7 +71,10 @@ def products_view(request: HttpRequest, category_slug=None):
         'slug_url': category_slug
     }
     
-    return HttpResponse( render(request, 'main.html', context))
+    return HttpResponse( render(request, 'products.html', context, {
+        'products_page': paged_products,
+        'search_form': search_form
+    }))
 
     # return HttpResponse(render(request, 'products.html', {
     #     'products_page': paged_products,
@@ -97,17 +100,17 @@ def get_product_for_view(id: int):
     return product
 
 
-# def product_view(request: HttpRequest, id: int):
-#     return HttpResponse(render(request, 'product.html', {
-#         'product': get_product_for_view(id=id)
-#     }))
+def product_view(request: HttpRequest, id: int):
+    return HttpResponse(render(request, 'product.html', {
+        'product': get_product_for_view(id=id)
+    }))
 
-def product_view(request: HttpRequest, id=False, product_slug=False):
+def product_view(request: HttpRequest, id=False, performance_slug=False):
 
     if id:
         product = get_product_for_view(id=id)
     else:
-        product = Product.objects.get(slug=product_slug)
+        product = Product.objects.get(slug=performance_slug)
 
     if not product.is_active:
         raise Http404('Билет не доступен')
@@ -287,7 +290,7 @@ def cancel_order_view(request: HttpRequest, id: int):
     return redirect('profile')
 
 def calculate_total_price(request):
-    shopping_cart = request.session.get('shopping_cart', [])
+    shopping_cart = request.session.get('basket', [])
 
     total_price = 0
     for item in shopping_cart:
