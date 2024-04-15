@@ -72,13 +72,12 @@ def product_view(request: HttpRequest, id=False, performance_slug=False):
     if id:
         product = get_product_for_view(id=id)
     else:
-        product = Product.objects.get(performance=performance_slug)
+        product = Product.objects.get(performance__slug=performance_slug)
 
     if not product.is_active:
         raise Http404('Билет не доступен')
     return HttpResponse(render(request, 'product.html', {
         'product': product,
-        'quantities': get_basket_quantity(request),
     }))
 
 
