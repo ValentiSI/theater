@@ -217,8 +217,7 @@ def get_order_view(request: HttpRequest, id: int):
 
     return HttpResponse(render(request, 'order.html', {
         'order': order,
-        'products': OrderProduct.objects.filter(order=order),
-        'quantities': get_basket_quantity(request),
+        'products': OrderProduct.objects.filter(order=order)
     }))
 
 
