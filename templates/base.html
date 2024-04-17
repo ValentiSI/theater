@@ -64,12 +64,29 @@
         {% block content %}
         {% endblock %}
     </main>
-    <footer>
-        <div class="chetko2">
-             <div class="box1">
-                 <p><a href="https://instagram.com/veriu_theatre?igshid=NTc4MTIwNjQ2YQ=="  class="text">Мы в социальных сетях</a>
-             </p>
-             </div>
+    <footer class="footer" id="footer"> 
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <h4 class="footer__title">Навигация</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'products' %}">Купить билеты</a></li>
+                        <li><a href="{% url 'basket' %}">Корзина</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'profile' %}">Профиль</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}">Войти</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-md-3 col-6">
+                    <h4 class="footer__title">Контакты</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="tel:+79061163120">
+                            <i class="fa-solid fa-phone"></i>&nbsp;+7 (906) 116-31-20</a></li>
+                    <p><a href="https://instagram.com/veriu_theatre?igshid=NTc4MTIwNjQ2YQ=="  class="text">Мы в социальных сетях</a></p>
+                </div>
+            </div>
              <div class="img-inst">
                  <p><a href="https://instagram.com/veriu_theatre?igshid=NTc4MTIwNjQ2YQ==" class="insta"></a></p>
              </div>

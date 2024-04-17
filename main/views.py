@@ -61,12 +61,6 @@ def get_product_for_view(id: int):
     return product
 
 
-# def product_view(request: HttpRequest, id: int):
-#     return HttpResponse(render(request, 'product.html', {
-#         'product': get_product_for_view(id=id),
-#         'quantities': get_basket_quantity(request),
-#     }))
-
 def product_view(request: HttpRequest, id=False, performance_slug=False):
 
     if id:
