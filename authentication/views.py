@@ -42,6 +42,9 @@ def logout(request: HttpRequest):
 
 
 def profile(request: HttpRequest):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
     return HttpResponse(render(request, 'profile.html', {}))
 
 
