@@ -1,3 +1,7 @@
+.container-profile {
+	text-align: center;
+}
+
 /* Форма регистрации */
 
 .input-group {
@@ -44,6 +48,10 @@
 	border: 2px solid rgb(126, 123, 126);
 	font-size: medium;
 	padding: 10px;
+}
+
+.forgot-password-link-container {
+	text-align: center;
 }
 
 .link:hover {

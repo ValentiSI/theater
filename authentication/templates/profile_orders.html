@@ -7,7 +7,7 @@
 		{% for order in orders %}
 			<div class='account-order'>
 				<p class='order-number'><b>Заказ No{{ order.id }}</b> от {{ order.created_at }}</p>
-				<p class='order-status'>Сумма: <b>{{ order.total_price}} ₽</b>, Статус: <b>{{ order.display_status }}</b></p>
+				<p class='order-status'>Сумма: <b>{{ order.total_price}} ₽</b>, Статус: <b>{{ order.status_label }}</b></p>
 				<a class='order-details-link'href="{% url 'profile_order_details' order_id=order.id %}"><button class='gradient-button order-details-button' type='submit'>ПОДРОБНЕЕ</button></a>
 			</div>
 		{% endfor %}

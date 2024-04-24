@@ -107,6 +107,7 @@ section {
     text-transform: uppercase;
     color: var(--contrast-color);
     font-weight: 700;
+    padding: 1%;
 }
 
 .section-title span {
@@ -120,7 +121,7 @@ section {
     position: absolute;
     /* content: ""; */
     width: 100%;
-    top: 50%;
+    top: 30%;
     left: 0;
     border: 1px dashed var(--text-color);
     /* z-index: -1; */

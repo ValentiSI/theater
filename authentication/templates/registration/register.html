@@ -5,21 +5,16 @@
 {% block head %}
 
 <title>Register</title>
+{% comment %} <link rel="stylesheet" href="{% static 'styles/base_for_profile.css' %}"> {% endcomment %}
 <link rel="stylesheet" href="{% static 'styles/register.css' %}">
 
 {% endblock %}
 
 {% block content %}
 	<section class="section-title">
-		<div class="container page-title">
+		<div class="container-profile page-title">
 			<h4>Регистрация</h4>
 		</div>
-	</section>
-	<section class="page-path container">
-		<ul>
-			<li class="home"><a class="colored" href="{% url 'products' %}">Главная</a></li>
-			<li>Регистрация</li>
-		</ul>
 	</section>
 	<div class='container register-form-container'>
 		<div class="register-errors">
@@ -43,6 +38,6 @@
 			</div>
 			<button class='gradient-button reg-button' type="submit">ЗАРЕГИСТРИРОВАТЬСЯ</button>
 		</form>
-		<p><a class="link" href="{% url 'login' %}">Уже есть аккаунт?</a></p>
+		<p class="forgot-password-link-container"><a class="link" href="{% url 'login' %}">Уже есть аккаунт?</a></p>
 	</div>
 {% endblock content%}

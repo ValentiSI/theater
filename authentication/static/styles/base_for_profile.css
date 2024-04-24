@@ -1,12 +1,12 @@
 /* Титульник */
 
-.page-title h1 {
+.page-title h4 {
     font-size: 80px;
 }
 
 /* Путь к текущей странице */
 
-.container {
+.container-profile {
 	width: 100%;
 	max-width: 1200px;
 	margin-right: auto;
@@ -16,32 +16,6 @@
 	align-items: center;
 	box-sizing: border-box;
 	flex-wrap: wrap;
-}
-
-.page-path {
-	display: block;
-	border-bottom: 2px solid rgb(124, 117, 124);
-	font-size: 14px;
-	padding-bottom: 20px;
-}
-
-.page-path ul {
-	padding: 0;
-	margin: 0;
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-}
-
-.page-path li {
-	padding-right: 25px;
-	list-style-type: '>';
-	padding-left: 10px;
-}
-
-.page-path .home {
-	list-style-type: none;
-	padding-left: 0;
 }
 
 .my-account {
@@ -117,7 +91,7 @@
 .registration-input {
     border: none;
     padding: 13px 13px;
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(207, 199, 199);
     font-size: 15px;
     color: #858585;
 }
@@ -129,7 +103,7 @@
     align-items: center;
 }
 
-.form-container h3 {
+.form-container h4 {
     margin: 10px;
     border-bottom: 1px solid #9c9b9b;
     font-size: 21px;
