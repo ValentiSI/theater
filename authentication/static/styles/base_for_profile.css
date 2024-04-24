@@ -20,7 +20,7 @@
 
 .page-path {
 	display: block;
-	border-bottom: 2px solid violet;
+	border-bottom: 2px solid rgb(124, 117, 124);
 	font-size: 14px;
 	padding-bottom: 20px;
 }
@@ -53,7 +53,7 @@
 
 .account-menu {
     min-width: 20%;
-    border: 3px solid #e0e0e0;
+    border: 3px solid #b8b3b3;
     padding: 20px;
     margin-right: 30px;
     align-self: start;
@@ -71,11 +71,11 @@
 }
 
 .bordered {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #b8b3b3;
 }
 
 .account-menu li:hover {
-    color: violet;
+    color: rgb(112, 107, 112);
 }
 
 .account-content {
@@ -131,7 +131,7 @@
 
 .form-container h3 {
     margin: 10px;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #9c9b9b;
     font-size: 21px;
     padding: 5px 0;
     font-weight: 100;
@@ -221,7 +221,7 @@
 .product-title {
     font-size: larger;
     margin-bottom: 20px;
-    color: rgb(126, 1, 215)
+    color: rgb(60, 52, 66)
 }
 
 .product-price {
@@ -267,7 +267,7 @@
 }
 
 .grey {
-    color: rgb(159, 159, 159);
+    color: rgb(124, 119, 119);
 }
 
 .order-details-button {

@@ -37,6 +37,6 @@ urlpatterns = [
     path(
         'performance/<slug:performance_slug>/',
         views.performance_view,
-        name='performance'
-    )
+        name='performance'),
+    path('products/<str:category_slug>/', views.products_view, name='products')
 ]

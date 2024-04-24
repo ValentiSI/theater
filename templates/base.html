@@ -1,101 +1,179 @@
 {% load static %}
+{% load main_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{% static 'styles/base.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/reset.css' %}">
+    {% comment %} <link rel="stylesheet" href="{% static 'styles/reset.css' %}"> {% endcomment %}
     <link rel="stylesheet" href="{% static 'styles/ui-kit.css' %}">
     {% block head %}
     {% endblock %}
 </head>
 <body>
-    <header class="header">
-        <div class="name-theater">
-            <h1>Театральная мастерская "Верю"</h1><br>
-        </div>
+    <div class="wrapper">
+        <!-- Header start -->
+        <header class="header">
+            <div class="header-top py-2"><!--header-top start-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="header-top-name align-items-center text-center">
+                                <a href="{% url 'products' %}" class="header-logo-title h4">Театральная мастерская "Верю"</a>
+                            </div>
+                            <div class="header-top-phone d-flex align-items-center mt-2">
+                                <i class="fa-solid fa-mobile-screen"></i>
+                                <a href="tel:+79063232241" class="ms-2">8(965)589-79-62</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="header-top-logo align-items-center text-center">
+                                <img class="logo-img" src="{% static 'img/logo.png' %}" alt="ТМ Верю">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="menu">
+                                <nav class="nav-menu">
+                                    <ul class="nav-menu__list">
+                                        <li><a href="{% url 'products' %}">Купить билеты</a></li>
+                                        <li><a href="{% url 'basket' %}">Корзина <span class="menu__basket-quantity">{{ basket_quantity }}</span></a></li>
+                                        {% if user.is_authenticated %}
+                                        <li class="nav-menu__profile"><a href="{% url 'profile' %}"><img class="nav-menu__profile-icon" src="{% static 'img/profile.png' %}" alt="profile"></a></li>
+                                        {% else %}
+                                        <li><a href="{% url 'login' %}">Войти</a></li>
+                                        {% endif %}
 
-        <div id="logo" class="logo">
-                <img class="logo-img" src="{% static 'img/logo.png' %}" alt="ТМ Верю">
-                <p class="chetko1">Пора в театр!</p>
-        </div>
+                                        {% if user.is_staff %}
+                                        <li><a href="{% url 'admin:index' %}">Админка</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center mt-2">
+                            <blockquote class="block-quote mb-0">«Истинные творческие чувства не лежат на поверхности души. Вызванные из глубин подсознания, они поражают не только зрителя, но и самого актера.»<br><a class="link" href="https://ru.wikipedia.org/wiki/%D0%A7%D0%B5%D1%85%D0%BE%D0%B2,_%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87" title="Михаил Александрович Чехов цитаты"> —&nbsp;Михаил Александрович Чехов</a></blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- "header-top" end-->
+        </header>
 
-        <div class="menu">
-            <nav class="nav-menu">
-                <ul class="nav-menu__list">
-                    <li><a href="{% url 'products' %}">Купить билеты</a></li>
-                    <li><a href="{% url 'basket' %}">Корзина <span class="menu__basket-quantity">{{ basket_quantity }}</span></a></li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-menu__profile"><a href="{% url 'profile' %}"><img class="nav-menu__profile-icon" src="{% static 'img/profile.png' %}" alt="profile"></a></li>
-                    {% else %}
-                    <li><a href="{% url 'login' %}">Войти</a></li>
-                    {% endif %}
-
-                    {% if user.is_staff %}
-                    <li><a href="{% url 'admin:index' %}">Админка</a></li>
-                    {% endif %}
-                </ul>
+        <div class="header-bottom sticky-top" id="header-nav"><!--header-bottom start-->
+            <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+                <div class="container">
+                  <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="offcanvas offcanvas-start" id="offcanvasNavbar" tabindex="-1" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Меню</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                       
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{% url 'products' %}">Главная</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'products' %}#about">О нас</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#footer">Контакты</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                    Выбор спектаклей
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    {% tag_category as category %}
+                                    {% for category in category %}
+                                        <li><a class="dropdown-item" href="{% url "products" category.slug %}#products">
+                                            {{category.name}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                  </div>
+                    <div>
+                        <a href="{% url 'basket' %}"class="btn p-1">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span class="badge rounded-pill text-bg-warning cart-bage bg-warning rounded-circle menu__basket-quantity">{{basket_quantities}}</span>
+                        </a>
+                    </div>
+                </div><!--container end-->
             </nav>
-        </div>
-
-        {% comment %} <div class="menu">
-            <nav class="nav-menu">
-                <ul class="nav-menu__list">
-                    <li><a href="#nashi-afishi">Наши афиши</a></li>
-                    <li><a href="#raspisanie-zanjat"  class="text">Расписание занятий</a></li> 
-                    <li><a href="#novosti"  class="text">Новости</a></li>
-                    <li><a href="#novosti"  class="text">Детский театр Феникс</a></li>
-                </ul>
-                <ul>
-                    <li><a href="#heart"  class="text">Избранное</a></li>
-                    <li><a href="{% url 'basket' %}"  class="btn p-1"><i class="fa-solid fa-cart-shopping"></i></a></li> 
-                </ul>
-            </nav>
-        </div> {% endcomment %}
-       
-       <blockquote class="chetko">«Истинные творческие чувства не лежат на поверхности души. Вызванные из глубин подсознания, они поражают не только зрителя, но и самого актера.»<br><a class="link" href="https://ru.wikipedia.org/wiki/%D0%A7%D0%B5%D1%85%D0%BE%D0%B2,_%D0%9C%D0%B8%D1%85%D0%B0%D0%B8%D0%BB_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B2%D0%B8%D1%87" title="Михаил Александрович Чехов цитаты"> —&nbsp;Михаил Александрович Чехов</a></blockquote>
-       
-    </header>
-    <main class="main-content">
+        </div><!--header-bottom end-->
+        <!-- Main start -->
+        <main class="main">
         {% block content %}
         {% endblock %}
-    </main>
-    <footer class="footer" id="footer"> 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-6">
-                    <h4 class="footer__title">Навигация</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'products' %}">Купить билеты</a></li>
-                        <li><a href="{% url 'basket' %}">Корзина</a></li>
-                        {% if user.is_authenticated %}
-                        <li><a href="{% url 'profile' %}">Профиль</a></li>
-                        {% else %}
-                        <li><a href="{% url 'login' %}">Войти</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-                <div class="col-md-3 col-6">
-                    <h4 class="footer__title">Контакты</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="tel:+79061163120">
-                            <i class="fa-solid fa-phone"></i>&nbsp;+7 (906) 116-31-20</a></li>
-                    <p><a href="https://instagram.com/veriu_theatre?igshid=NTc4MTIwNjQ2YQ=="  class="text">Мы в социальных сетях</a></p>
-                </div>
+        </main>
+<!-- Main end -->
+<!-- Footer start -->
+<footer class="footer" id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-6">
+                <h4>Навигация:</h4>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'products' %}">Главная</a></li>
+                    <li><a href="{% url 'products' %}#about">О нас</a></li>
+                    <li><a href="{% url 'basket' %}">Корзина</a></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Личный кабинет</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Войти в личный кабинет</a></li>
+                    {% endif %}
+                </ul>
             </div>
-             <div class="img-inst">
-                 <p><a href="https://instagram.com/veriu_theatre?igshid=NTc4MTIwNjQ2YQ==" class="insta"></a></p>
-             </div>
-         </div>
-         <div class="niz">
-            <p><small>@ 2020, Все права защищены</small></p>
-            <p><small>Copyright &copy; Company 2020</small></p>
-         </div>
-      </footer>
+            <div class="col-md-4 col-6">
+                <h4>Часы работы</h4>
+                <ul class="list-unstyled">
+                    <li>Набережные Челны, пр-т Мира, 59</li>
+                    <li>Молодежный центр Шатлык</li></li>
+                    <li>Пн-Пт: 17:00 - 21:00</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>Контакты</h4>
+                <ul class="list-unstyled">
+                    <li><i class="fa-solid fa-mobile-screen"></i>
+                        <a href="tel:+79063232241" class="ms-2">8(965)589-79-62</a></li>
+                    <li><i class="fa-solid fa-envelope"></i>
+                        <a href="mailto:Z6b7s@example.com">Z6b7s@example.com</a></li>
+                    <li><a href="https://instagram.com/veriu_theatre?igshid=NTc4MTIwNjQ2YQ=="  class="text">Мы в социальных сетях</a></i></li>
+                    <li><div class="col-sm-4 d-none d-sm-block">
+                        <ul class="social-icons d-flex justify-content-center">
+                            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                        </ul>
+                    </div></li>
+                </ul>
+            </div>   
+        </div>
+    </div>
+<hr class="footer__horizonal_line">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p class="text-center"><small>© 2020, Все права защищены</small></p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer end -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="{% static 'js/main.js' %}"></script>

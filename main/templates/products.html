@@ -4,65 +4,105 @@
 {% block head %}
 
 <title>Театральная мастерская "Верю"</title>
+<link rel="stylesheet" href="{% static 'styles/base.css' %}">
 <link rel="stylesheet" href="{% static 'styles/products.css' %}">
 
 {% endblock %}
 
 {% block content %}
 
-<div class="search-container">
-    <form class="search-form" method="GET" action="{% url 'products' %}">
-        <div class="input-group search-form__categories-input">
-            {{ search_form.category }}
+<div class="container">
+    <div class="row">
+        <div class="search-container">
+            <form class="search-form" method="GET" action="{% url 'products' %}">
+                <div class="input-group search-form__category-input">
+                    {{ search_form.category }}
+                </div>
+                <div class="complex-input">
+                    <div class="search-form__input_container">{{ search_form.query }}</div>
+                    <button class="search-form__button" type="submit">
+                        <img class="search-icon" src="{% static 'img/search.png' %}" alt="find">
+                    </button>
+                </div>
+            </form>
         </div>
-        <div class="complex-input">
-            <div class="search-form__input_container">{{ search_form.query }}</div>
-            <button class="search-form__button" type="submit">
-                <img class="search-icon" src="{% static 'img/search.png' %}" alt="find">
-            </button>
-        </div>
-    </form>
+    </div>
 </div>
 
-{% include 'pagination.html' with page_obj=products_page %}
-<hr class="products_page__horizonal_line">
-<ul class="product-list">
-    {% for product in products_page %}
-    <li>
-        <div 
-            class="
-                product-card
-                {% if product.count < 1 %}product-card_disabled{% endif %}
-            "
-        >
+<div class="container">
+    <hr class="products_page__horizonal_line">
+    <div class="row">
+        <div class="col-md-8">
+            <ul class="product-list">
+                {% for product in products_page %}
+                <li>
+                    <div 
+                        class="
+                            product-card
+                            {% if product.count < 1 %}product-card_disabled{% endif %}
+                        "
+                    >
 
-            <img 
-                class="product-card__image" 
-                src="{% if product.performance.image.url is not None %}{{ product.performance.image.url }}{% endif %}" 
-                alt="{{ product.title }}"
-            />
-            <h2 class="product-card__title">{{ product.title }}</h2>
-            <div class="product-card__prices-container">
-            {% if product.original_price is not None %}
-            <p class="product-card__original-price">{{ product.original_price }}</p>
-            {% endif %}
-            <p class="product-card__price">{{ product.price }}</p>
-            </div>
-            <form action="{% url 'add_to_basket' product.id %}" class="product__add-to-basket-form">
-                <button 
-                    type="submit"
-                    class="button product__add-to-basket-button"
-                    {% if product.count < 1 %}disabled{% endif %}
-                >
-                    <i class="fas fa-shopping-cart"></i>
-                </button>
-            </form>
-            <a href="{% url 'product' product.id %}" class="button product-card__link">Подробнее</a>
+                        <img 
+                            class="product-card__image" 
+                            src="{% if product.performance.image.url is not None %}{{ product.performance.image.url }}{% endif %}" 
+                            alt="{{ product.title }}"
+                        />
+                        <h2 class="product-card__title">{{ product.title }}</h2>
+                        <div class="product-card__prices-container">
+                        {% if product.original_price is not None %}
+                        <p class="product-card__original-price">{{ product.original_price }}</p>
+                        {% endif %}
+                        <p class="product-card__price">{{ product.price }}</p>
+                        </div>
+                        <form action="{% url 'add_to_basket' product.id %}" class="product__add-to-basket-form">
+                            <button 
+                                type="submit"
+                                class="button product__add-to-basket-button"
+                                {% if product.count < 1 %}disabled{% endif %}
+                            >
+                                <i class="fas fa-shopping-cart"></i>
+                            </button>
+                        </form>
+                        <a href="{% url 'product' product.id %}" class="button product-card__link">Подробнее</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
         </div>
-    </li>
-    {% endfor %}
-</ul>
-<hr class="products_page__horizonal_line">
-{% include 'pagination.html' with page_obj=products_page %}
-
+    </div>
+    <hr class="products_page__horizonal_line">
+    <div class="row">
+        <div class="col d-flex justify-content-center mb-2">
+            {% include 'pagination.html' with page_obj=products_page %}
+        </div>
+    </div>
+</div>
+{% comment %} Section About US {% endcomment %}
+<section class="about-us" id="about">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12">
+                <h4 class="section-title">
+                    <span>О нас</span>
+                </h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+                    Sint adipisci molestiae, sequi alias illum amet ratione omnis mollitia, 
+                    facere expedita dicta dolore fugiat, reprehenderit nobis accusamus similique modi. 
+                    Deleniti, quisquam!</p>
+                <p>Laborum vel nemo quos repellendus earum, ratione laudantium natus adipisci pariatur 
+                    voluptatem beatae et optio temporibus eius ducimus, hic sequi quisquam aliquam 
+                    consectetur dolor amet! Tempore dignissimos harum voluptatibus nostrum!</p>
+                <p>Quibusdam eos, corrupti eligendi cumque asperiores quia, 
+                    suscipit doloremque vel hic recusandae quod obcaecati tempore atque 
+                    corporis molestias assumenda alias earum. Eum ab excepturi commodi nihil nemo vel earum 
+                    voluptatem?</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

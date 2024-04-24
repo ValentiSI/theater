@@ -33,7 +33,7 @@
 	padding: 8px;
 	margin-top: 5px;
 	margin-bottom: 10px;
-	border-image: linear-gradient(to right, violet, indigo) 1;
+	border-image: linear-gradient(to right,rgb(126, 123, 126), rgb(50, 43, 54)) 1;
 	font-size: large;
 	padding-right: 50px;
 	outline: none;
@@ -41,13 +41,13 @@
 
 .reg-button {
 	width: 210px;
-	border: 2px solid violet;
+	border: 2px solid rgb(126, 123, 126);
 	font-size: medium;
 	padding: 10px;
 }
 
 .link:hover {
-	color: violet
+	color: rgb(126, 123, 126)
 }
 
 @media screen and (max-width: 320px) {

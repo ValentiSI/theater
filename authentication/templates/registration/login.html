@@ -7,17 +7,6 @@
 {% endblock %}
 
 {% block content %}
-	<section class="section-title">
-		<div class="container page-title">
-			<h1>Войти</h1>
-		</div>
-	</section>
-	<section class="page-path container">
-		<ul>
-			<li class="home"><a class="colored" href="{% url 'products' %}">Главная</a></li>
-			<li>Войти</li>
-		</ul>
-	</section>
 	<div class='container login-form-container'>
 		<div class="login-errors">
 			{% if form.errors %}

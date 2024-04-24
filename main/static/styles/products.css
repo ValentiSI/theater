@@ -1,7 +1,6 @@
-
-
 .search-container {
-    margin-bottom: 2em;
+    margin-top: 0.5em;
+    margin-bottom: 0;
 }
 
 .search-form {
@@ -10,8 +9,8 @@
     gap: 1em;
 }
 
-.search-form__categories-input {
-    width: 20%;
+.search-form__category-input {
+    width: 30%;
 }
 
 .search-form__input_container {
@@ -73,6 +72,7 @@
 
 .products_page__horizonal_line {
     margin: 1em 0;
-    border: 1px solid rgb(160, 160, 160);
+    background-color: rgb(136, 134, 134);
+    border: 1px solid rgb(136, 134, 134);
     height: 1px;
 }

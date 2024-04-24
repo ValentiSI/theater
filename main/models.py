@@ -4,14 +4,14 @@ from authentication.models import User
 import datetime
 
 
-class Categories(models.Model):
+class Category(models.Model):
     """Категория спектакля по возрасту."""
     name = models.CharField(max_length=150, unique=True, verbose_name='Название')
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True, verbose_name='URL') 
 
     class Meta:
         db_table = 'category'
-        verbose_name = 'Категорию'
+        verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
 
     def __str__(self):
@@ -45,7 +45,7 @@ class Performance(models.Model):
     )
     # возрастные ограничения, например 18+, 12+
     age_limit = models.CharField(max_length=5, verbose_name='Возрастное ограничения')
-    category = models.ManyToManyField(Categories,verbose_name='Категория')
+    category = models.ManyToManyField(Category,verbose_name='Категория')
     is_active = models.BooleanField(default=True, verbose_name='Активен')
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name='Дата создания'

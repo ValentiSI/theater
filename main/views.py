@@ -8,10 +8,11 @@ from django.core.paginator import Paginator
 from django.urls import reverse
 from main.utils import q_search
 
-from .models import Order, OrderProduct, Performance, Product, Categories
+from .models import Order, OrderProduct, Performance, Product, Category
 from .forms import SearchForm
 
-def products_view(request: HttpRequest):
+
+def products_view(request: HttpRequest, category_slug=None):
     category_slug = request.GET.get('category', None)
     query = request.GET.get('q', None)
     
@@ -36,7 +37,8 @@ def products_view(request: HttpRequest):
 
     context = {
         'products_page': paged_products,
-        'search_form': search_form
+        'search_form': search_form,
+        'category_slug': category_slug
     }
     
     return HttpResponse( render(request, 'products.html', context))

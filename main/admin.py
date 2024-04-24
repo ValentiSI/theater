@@ -2,14 +2,14 @@ from django.contrib import admin
 from django.utils.html import format_html_join, format_html
 from django.urls import reverse
 
-from .models import Order, OrderProduct, Product, Performance, Categories
+from .models import Order, OrderProduct, Product, Performance, Category
 
 admin.site.register(Product)
 # admin.site.register(Performance)
 
 
-@admin.register(Categories)
-class CategoriesAdmin(admin.ModelAdmin):
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 @admin.register(Performance)
