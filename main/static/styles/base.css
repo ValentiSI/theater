@@ -2,7 +2,7 @@
     --bg-color: #ffffff;
     --text-color: #62686d;
     --text-color1: #0c0c0c;
-    --accent-color: #d11717;
+    --accent-color: #c71313;
     --contrast-color: #3d464d;
     --gray-color: #ccc;
     --red-color: #ee6e73;
@@ -99,7 +99,7 @@ main.main {
 }
 
 section {
-    padding: 50px 0;
+    padding: 20px 0;
 }
 
 .section-title {
@@ -121,7 +121,7 @@ section {
     position: absolute;
     /* content: ""; */
     width: 100%;
-    top: 30%;
+    top: 20%;
     left: 0;
     border: 1px dashed var(--text-color);
     /* z-index: -1; */
@@ -165,7 +165,7 @@ section {
         0 3px 2px 2px rgba(0, 0, 0, 0.2),
         0 1px 4px 0 rgba(0, 0, 0, 0.50);
     background-color: white;
-    border-radius: 10px;
+    border-radius: 3px;
 }
 
 .block-quote a {
@@ -293,13 +293,43 @@ ul.social-icons a:hover {
 button {
     cursor: pointer;
 }
+/* ============================================= Footer start =============================================== */
+/* footer {
+    background-color: var(--contrast-color);
+    padding: 30px 0;
+    color: #fff;
+  }
+  
+  footer h4 {
+    color: #fff;
+  }
+  
+  footer a {
+    color: #fff;
+    text-decoration: none;
+    transition: all .3s;
+  }
+  
+  footer a:hover {
+    color: var(--accent-color);
+  } */
+  
+  /* .footer-icons {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    font-size: 20px;
+  } */
 
-.footer__horizonal_line {
-    margin: 0.5em 0;
-    /* background-color: rgb(185, 0, 0); */
-    border: 1px solid var(--accent-color);
-    height: 1.5px;
+  .footer__horizonal_line {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    /* border: 2px solid var(--accent-color); */
+    border: 2px solid black;
+    height: 2.5px;
 }
+  /* ============================================= Footer end =============================================== */
 
 @media (max-width: 600px) {
     .main-content {

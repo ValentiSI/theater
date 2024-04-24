@@ -81,4 +81,3 @@ def profile_order_details(request: HttpRequest, order_id: int):
         "order": order,
         "order_items": order_items
     }))
-    

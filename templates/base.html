@@ -121,59 +121,61 @@
         {% block content %}
         {% endblock %}
         </main>
-<!-- Main end -->
-<!-- Footer start -->
-<footer class="footer" id="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-6">
-                <h4>Навигация:</h4>
-                <ul class="list-unstyled">
-                    <li><a href="{% url 'products' %}">Главная</a></li>
-                    <li><a href="{% url 'products' %}#about">О нас</a></li>
-                    <li><a href="{% url 'basket' %}">Корзина</a></li>
-                    {% if user.is_authenticated %}
-                    <li><a href="{% url 'profile' %}">Личный кабинет</a></li>
-                    {% else %}
-                    <li><a href="{% url 'login' %}">Войти в личный кабинет</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div class="col-md-4 col-6">
-                <h4>Часы работы:</h4>
-                <ul class="list-unstyled">
-                    <li>Набережные Челны, пр-т Мира, 59</li>
-                    <li>Молодежный центр Шатлык</li></li>
-                    <li>Пн-Пт: 17:00 - 21:00</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h4>Контакты:</h4>
-                <ul class="list-unstyled">
-                    <li><i class="fa-solid fa-mobile-screen"></i>
-                        <a href="tel:+79063232241" class="ms-2">8(965)589-79-62</a></li>
-                    <li><i class="fa-solid fa-envelope"></i>
-                        <a href="mailto:Z6b7s@example.com">Z6b7s@example.com</a></li>
-                    <li><a href="https://instagram.com/veriu_theatre?igshid=NTc4MTIwNjQ2YQ=="  class="text">Мы в социальных сетях</a></i></li>
-                    <li><div class="col-sm-4 d-none d-sm-block">
-                        <ul class="social-icons d-flex justify-content-center">
-                            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+        <!-- Main end -->
+        <!-- Footer start -->
+        <footer class="footer" id="footer">
+            <hr class="footer__horizonal_line">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-6">
+                        <h4>Навигация:</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'products' %}">Главная</a></li>
+                            <li><a href="{% url 'products' %}#about">О нас</a></li>
+                            <li><a href="{% url 'basket' %}">Корзина</a></li>
+                            {% if user.is_authenticated %}
+                            <li><a href="{% url 'profile' %}">Личный кабинет</a></li>
+                            {% else %}
+                            <li><a href="{% url 'login' %}">Войти в личный кабинет</a></li>
+                            {% endif %}
                         </ul>
-                    </div></li>
-                </ul>
-            </div>   
-        </div>
-    </div>
-<hr class="footer__horizonal_line">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <p class="text-center"><small>© 2020, Все права защищены</small></p>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <h4>Часы работы:</h4>
+                        <ul class="list-unstyled">
+                            <li>Набережные Челны, пр-т Мира, 59</li>
+                            <li>Молодежный центр Шатлык</li></li>
+                            <li>Пн-Пт: 17:00 - 21:00</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Контакты:</h4>
+                        <ul class="list-unstyled">
+                            <li><i class="fa-solid fa-mobile-screen"></i>
+                                <a href="tel:+79063232241" class="ms-2">8(965)589-79-62</a></li>
+                            <li><i class="fa-solid fa-envelope"></i>
+                                <a href="mailto:Z6b7s@example.com">Z6b7s@example.com</a></li>
+                            <li><a href="https://instagram.com/veriu_theatre?igshid=NTc4MTIwNjQ2YQ=="  class="text">Мы в социальных сетях</a></i></li>
+                            <li><div class="col-sm-4 d-none d-sm-block">
+                                <ul class="social-icons d-flex justify-content-center">
+                                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                                </ul>
+                            </div></li>
+                        </ul>
+                    </div>   
+                </div>
             </div>
-        </div>
-    </div>
-</footer>
-<!-- Footer end -->
+        <hr class="footer__horizonal_line">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-center"><small>© 2020, Все права защищены</small></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer end -->
+    </div><!--wrapper end-->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="{% static 'js/main.js' %}"></script>
