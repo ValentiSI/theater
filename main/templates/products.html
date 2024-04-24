@@ -49,6 +49,14 @@
                             alt="{{ product.title }}"
                         />
                         <h2 class="product-card__title">{{ product.title }}</h2>
+                        <div class="product__date">
+                            <h5 class="product__field date-heading">Дата:</h5>
+                            <p class="product__field">{{ product.show_date|date:"d.m.Y" }}</p>
+                        </div>
+                        <div class="product__time">
+                            <h5 class="product__field time-heading">Время:</h5>
+                            <p class="product__field mr-2 "><i class="fa-solid fa-clock"></i>{{ product.show_date|time:"H:i" }}</p>
+                        </div>
                         <div class="product-card__prices-container">
                         {% if product.original_price is not None %}
                         <p class="product-card__original-price">{{ product.original_price }}</p>
@@ -63,8 +71,7 @@
                             >
                                 <i class="fas fa-shopping-cart"></i>
                             </button>
-                        </form>
-                        <a href="{% url 'product' product.id %}" class="button product-card__link">Подробнее</a>
+                            <a href="{% url 'product' product.id %}" class="button product-card__link">Подробнее</a>
                     </div>
                 </li>
                 {% endfor %}
